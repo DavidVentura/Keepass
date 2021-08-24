@@ -9,8 +9,7 @@ sys.path.insert(0, vendored)
 from pykeepass import PyKeePass
 from pykeepass.exceptions import CredentialsError
 
-print(os.listdir('/home/phablet'), flush=True)
-CONFIG = {'key_path': None}
+CONFIG = {'key_path': ''}
 kp = None
 
 def save_config():
@@ -34,13 +33,17 @@ def open_db(password):
 
     pyotherside.send('db_open')
 
-def get_entries():
+def get_groups():
+    return [g.name for g in kp.groups]
+
+def get_entries(group_name):
+    group = kp.find_groups(name=group_name, first=True)
 
     return [{'url': entry.url,
              'title': entry.title,
              'username': entry.username,
              'password': entry.password,
              'group': entry.group}
-            for entry in kp.entries]
+            for entry in group.entries]
 
 set_file('/home/phablet/test.kdbx', True)

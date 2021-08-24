@@ -31,35 +31,14 @@ UITK.MainView {
     width: units.gu(45)
     height: units.gu(75)
 
-    UITK.Page {
-        anchors.fill: parent
-        id: page
-        header: UITK.PageHeader {
-            id: header
-            title: i18n.tr('Keepass')
-        }
-
-        StackView {
-            anchors.top: header.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            id: stack
-            initialItem: opendb
-        }
-        OpenDBPage {
-            visible: false
-            anchors.fill: parent
-            id: opendb
-        }
-        EntriesPage {
-            visible: false
-            anchors.fill: parent
-            id: entriesPage
-        }
-        function push_entries() {
-            stack.push(entriesPage)
-            entriesPage.populate()
-        }
+    UITK.PageStack {
+        id: stack
     }
+
+    //    UITK.Page {
+    //        id: page
+    function push_entries() {
+        stack.push(Qt.resolvedUrl("pages/EntriesPage.qml"))
+    }
+    Component.onCompleted: stack.push(Qt.resolvedUrl("pages/OpenDBPage.qml"))
 }

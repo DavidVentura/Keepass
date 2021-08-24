@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: keepass.davidv.dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-24 14:18+0000\n"
+"POT-Creation-Date: 2021-08-24 21:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:39 Keepass.desktop.in.h:1
+#: Keepass.desktop.in.h:1
 msgid "Keepass"
 msgstr ""

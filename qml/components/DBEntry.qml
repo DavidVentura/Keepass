@@ -1,62 +1,59 @@
 import QtQuick 2.12
+import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import Ubuntu.Components 1.3 as UITK
 
-Column {
+RowLayout {
     property bool passwordVisible: false
-    Text {
-        text: title
-        font.pointSize: units.gu(1.8)
-    }
-
-    RowLayout {
-        UITK.Icon {
-            name: "contact"
-            height: units.gu(2)
+    Column {
+        Text {
+            text: title
+            font.pointSize: units.gu(1.8)
         }
 
-        Text {
-            Layout.fillWidth: true
-            text: username
+        RowLayout {
+            UITK.Icon {
+                name: "account"
+                height: units.gu(3)
+            }
+
+            Text {
+                Layout.fillWidth: true
+                text: username
+            }
         }
-    }
-    RowLayout {
-        UITK.Icon {
-            name: "settings"
-            height: units.gu(2)
+
+        Row {
+            Image {
+                source: "../../assets/web.png"
+                height: units.gu(3)
+                fillMode: Image.PreserveAspectFit
+            }
+            Text {
+                Layout.fillWidth: true
+                text: url
+            }
         }
         Text {
-            Layout.fillWidth: true
             text: passwordVisible ? password : 'Tap to reveal'
         }
-        UITK.Button {
-            width: units.gu(5)
-
-            iconName: "undo"
-        }
-        UITK.Button {
-            width: units.gu(5)
-            iconName: "close"
-        }
     }
     RowLayout {
-        UITK.Icon {
-            name: "undo"
-            height: units.gu(2)
+        height: parent.height
+        Image {
+            source: "../../assets/copy.png"
+            height: units.gu(3)
+            fillMode: Image.PreserveAspectFit
         }
-        Text {
-            Layout.fillWidth: true
-            text: url
-        }
-    }
-    RowLayout {
-        UITK.Icon {
-            name: "undo"
-            height: units.gu(2)
-        }
-        Text {
-            Layout.fillWidth: true
-            text: group
+        Image {
+            source: "../../assets/visibility.png"
+            height: units.gu(3)
+            fillMode: Image.PreserveAspectFit
+            MouseArea {
+                anchors.fill: parent
+                onPressed: passwordVisible = pressed
+                onReleased: passwordVisible = pressed
+            }
         }
     }
 }

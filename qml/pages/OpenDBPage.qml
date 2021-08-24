@@ -7,7 +7,8 @@ import io.thp.pyotherside 1.3
 UITK.Page {
     property bool pickingDB
     property variant settings: {
-
+        "key_path": '',
+        "db_path": ''
     }
     function fileReady(filePath) {
         python.call("kp.set_file", [filePath, pickingDB])
@@ -114,7 +115,7 @@ UITK.Page {
                 python.call('kp.open_db', [password.text])
             })
             setHandler('db_open', function () {
-                page.push_entries()
+                root.push_entries()
             })
             importModule('kp', function () {
                 openDB.enabled = true
