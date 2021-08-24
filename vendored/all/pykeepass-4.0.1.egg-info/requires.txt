@@ -1,0 +1,6 @@
+python-dateutil
+construct==2.10.54
+argon2_cffi
+pycryptodomex>=3.6.2
+lxml
+future

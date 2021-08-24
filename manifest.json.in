@@ -1,0 +1,16 @@
+{
+    "name": "keepass.davidv.dev",
+    "description": "View entries in a KeePass (kdbx, kdbx3, kdbx4) file",
+    "architecture": "@CLICK_ARCH@",
+    "title": "Keepass",
+    "hooks": {
+        "Keepass": {
+            "apparmor": "Keepass.apparmor",
+            "desktop":  "Keepass.desktop",
+            "content-hub": "content-hub.json"
+        }
+    },
+    "version": "1.0.0",
+    "maintainer": "David Ventura <david@davidv.dev>",
+    "framework" : "@CLICK_FRAMEWORK@"
+}
