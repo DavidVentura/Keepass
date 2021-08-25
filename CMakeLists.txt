@@ -43,7 +43,6 @@ install(FILES ${PROJECT_NAME}.apparmor DESTINATION ${DATA_DIR})
 
 install(DIRECTORY assets DESTINATION ${DATA_DIR})
 install(DIRECTORY src DESTINATION ${DATA_DIR})
-install(DIRECTORY vendored/${CLICK_ARCH}/ DESTINATION ${DATA_DIR}src/vendored/)
 
 install(DIRECTORY qml DESTINATION ${DATA_DIR})
 
@@ -66,6 +65,9 @@ add_custom_target(${DESKTOP_FILE_NAME} ALL
     COMMAND sed -i 's/${PROJECT_NAME}-//g' ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME}
 )
 
+add_custom_target(no_idea ALL
+    COMMAND pip3 install --platform manylinux2014_aarch64 --only-binary=:all: pykeepass-rs==0.1 --target install/vendored
+)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME} DESTINATION ${DATA_DIR})
 
 add_subdirectory(po)

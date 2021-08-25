@@ -1,5 +1,9 @@
 {
   "clickable_minimum_required": "6.22.0",
   "builder": "cmake",
-  "kill": "qmlscene"
+  "kill": "qmlscene",
+  "dependencies_host": [
+          "python3-pip",
+          "python3-wheel"
+  ]
 }
