@@ -12,5 +12,8 @@
     },
     "version": "1.0.0",
     "maintainer": "David Ventura <david@davidv.dev>",
-    "framework" : "@CLICK_FRAMEWORK@"
+    "framework" : "@CLICK_FRAMEWORK@",
+    "dependencies_host": [
+	    "python3-pip"
+    ]
 }
