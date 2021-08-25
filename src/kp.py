@@ -3,13 +3,13 @@ import sys
 import pyotherside
 here = os.path.abspath(os.path.dirname(__file__))
 
-vendored = os.path.join(here, 'vendored')
+vendored = os.path.join(here, '..', 'vendored')
 sys.path.insert(0, vendored)
 
-from pykeepass import PyKeePass
-from pykeepass.exceptions import CredentialsError
+from pykeepass_rs import get_all_entries
 
 CONFIG = {'key_path': ''}
+ENTRIES = []
 kp = None
 
 def save_config():
@@ -24,26 +24,23 @@ def set_file(path, is_db):
     save_config()
 
 def open_db(password):
-    global kp
+    global ENTRIES
     try:
-        kp = PyKeePass(CONFIG['db_path'], keyfile=CONFIG['key_path'], password=password)
-    except CredentialsError:
-        print("Bad creds! bye", flush=True)
+        ENTRIES = get_all_entries(CONFIG['db_path'], password=password or None, keyfile=CONFIG['key_path'] or None)
+    except OSError as e:
+        print("Bad creds! bye", e, flush=True)
         return
 
     pyotherside.send('db_open')
 
 def get_groups():
-    return [g.name for g in kp.groups]
+    return sorted(set(e['group'] for e in ENTRIES))
 
 def get_entries(group_name):
-    group = kp.find_groups(name=group_name, first=True)
+    #group = kp.find_groups(name=group_name, first=True)
 
-    return [{'url': entry.url,
-             'title': entry.title,
-             'username': entry.username,
-             'password': entry.password,
-             'group': entry.group}
-            for entry in group.entries]
+    return [entry
+            for entry in ENTRIES
+            if group_name in entry['group']]
 
-set_file('/home/phablet/test.kdbx', True)
+set_file('/home/phablet/atest.kdbx', True)

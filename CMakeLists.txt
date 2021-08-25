@@ -65,8 +65,18 @@ add_custom_target(${DESKTOP_FILE_NAME} ALL
     COMMAND sed -i 's/${PROJECT_NAME}-//g' ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME}
 )
 
+execute_process(
+   COMMAND dpkg-architecture -qDEB_HOST_GNU_CPU
+   COMMAND sed -e "s/arm64/manylinux2014_aarch64/g"
+   COMMAND sed -e "s/arm/manylinux2014_armhf/g"
+   COMMAND sed -e "s/x86_64/manylinux2_24_x86_64/g"
+   OUTPUT_VARIABLE CPU_ARCH
+   OUTPUT_STRIP_TRAILING_WHITESPACE
+)
 add_custom_target(no_idea ALL
-    COMMAND pip3 install --platform manylinux2014_aarch64 --only-binary=:all: pykeepass-rs==0.1 --target install/vendored
+    COMMAND pip3 install -U pip==20.3.4
+    COMMENT Building for ${CPU_ARCH}
+    COMMAND pip3 install -U --platform ${CPU_ARCH} --only-binary=:all: pykeepass-rs==0.1.1 --target install/vendored
 )
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME} DESTINATION ${DATA_DIR})
 
