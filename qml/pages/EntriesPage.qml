@@ -6,28 +6,29 @@ import Ubuntu.Components 1.3 as UITK
 import "../components"
 
 UITK.Page {
-    Flickable {
-        leftMargin: (parent.width / 2 - sections.width / 2)
-                    > 0 ? (parent.width / 2 - sections.width / 2) : 0
-        width: parent.width
-        height: sections.height
-        contentWidth: sections.width
-        contentHeight: sections.height
-        boundsBehavior: Flickable.StopAtBounds
-        id: sectionFlickable
-        UITK.Sections {
-            anchors.top: parent.top
-            x: parent.width / 2 - width / 2
-            id: sections
-            model: []
-            onSelectedIndexChanged: {
-                get_entries(model[selectedIndex])
-            }
+
+    id: sectionFlickable
+    UITK.Sections {
+        anchors.top: parent.top
+        x: parent.width / 2 - width / 2
+        anchors.left: {
+            if (width >= parent.width)
+                return parent.left
+        }
+        anchors.right: {
+            if (width >= parent.width)
+                return parent.right
+        }
+
+        id: sections
+        model: []
+        onSelectedIndexChanged: {
+            get_entries(model[selectedIndex])
         }
     }
 
     ListView {
-        anchors.top: sectionFlickable.bottom
+        anchors.top: sections.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
