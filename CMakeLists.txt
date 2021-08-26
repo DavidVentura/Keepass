@@ -69,7 +69,7 @@ execute_process(
    COMMAND dpkg-architecture -qDEB_HOST_GNU_CPU
    COMMAND sed -e "s/arm64/manylinux2014_aarch64/g"
    COMMAND sed -e "s/arm/manylinux2014_armhf/g"
-   COMMAND sed -e "s/x86_64/manylinux2_24_x86_64/g"
+   COMMAND sed -e "s/x86_64/manylinux1_x86_64/g"
    OUTPUT_VARIABLE CPU_ARCH
    OUTPUT_STRIP_TRAILING_WHITESPACE
 )
