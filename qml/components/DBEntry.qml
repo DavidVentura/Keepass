@@ -3,56 +3,65 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import Ubuntu.Components 1.3 as UITK
 
-RowLayout {
+Item {
     property bool passwordVisible: false
-    Column {
-        Text {
-            text: title
-            font.pointSize: units.gu(1.8)
-        }
+    height: units.gu(12)
+    anchors.leftMargin: units.gu(2)
+    anchors.rightMargin: units.gu(2)
 
-        RowLayout {
-            UITK.Icon {
-                name: "account"
-                height: units.gu(3)
+    anchors.left: parent.left
+    anchors.right: parent.right
+    RowLayout {
+        anchors.fill: parent
+        spacing: units.gu(2)
+        UITK.Icon {
+            source: 'file://' + icon_path
+            width: units.gu(5)
+            y: parent.height / 2 - height / 2
+        }
+        ColumnLayout {
+            spacing: units.gu(0.5)
+            Text {
+                text: title
+                font.pointSize: units.gu(1.8)
             }
 
             Text {
+                color: '#666'
                 Layout.fillWidth: true
                 text: username
             }
-        }
 
+            Text {
+                text: passwordVisible ? password : 'Tap to reveal'
+            }
+        }
         Row {
+            spacing: units.gu(2)
             Image {
-                source: "../../assets/web.png"
-                height: units.gu(3)
+                height: units.gu(4)
+                y: parent.height / 2 - height / 2
+
+                source: "../../assets/copy.png"
                 fillMode: Image.PreserveAspectFit
             }
-            Text {
-                Layout.fillWidth: true
-                text: url
+            Image {
+                height: units.gu(4)
+                y: parent.height / 2 - height / 2
+
+                source: "../../assets/visibility.png"
+                fillMode: Image.PreserveAspectFit
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: passwordVisible = pressed
+                    onReleased: timer.restart()
+                }
             }
-        }
-        Text {
-            text: passwordVisible ? password : 'Tap to reveal'
-        }
-    }
-    RowLayout {
-        height: parent.height
-        Image {
-            source: "../../assets/copy.png"
-            height: units.gu(3)
-            fillMode: Image.PreserveAspectFit
-        }
-        Image {
-            source: "../../assets/visibility.png"
-            height: units.gu(3)
-            fillMode: Image.PreserveAspectFit
-            MouseArea {
-                anchors.fill: parent
-                onPressed: passwordVisible = pressed
-                onReleased: passwordVisible = pressed
+            Timer {
+                id: timer
+                repeat: false
+                interval: 500
+                onTriggered: passwordVisible = false
             }
         }
     }

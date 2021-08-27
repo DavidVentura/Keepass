@@ -9,6 +9,7 @@ UITK.Page {
 
     id: sectionFlickable
     UITK.Sections {
+        z: 2
         anchors.top: parent.top
         x: parent.width / 2 - width / 2
         anchors.left: {
@@ -25,6 +26,14 @@ UITK.Page {
         onSelectedIndexChanged: {
             get_entries(model[selectedIndex])
         }
+    }
+    Rectangle {
+        z: 1
+        anchors.top: sections.top
+        anchors.bottom: sections.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        color: 'white'
     }
 
     ListView {
@@ -64,7 +73,9 @@ UITK.Page {
         id: python
         Component.onCompleted: {
             addImportPath(Qt.resolvedUrl('../../src/'))
-            //            importModule('kp', function () {})
+            importModule('kp', function () {
+                python.call('kp.fetch_all_icons')
+            })
         }
     }
     Component.onCompleted: populate()
