@@ -6,6 +6,8 @@ import io.thp.pyotherside 1.3
 
 UITK.Page {
     property bool pickingDB
+    property bool busy
+    property string errorMsg
     property variant settings: {
         "key_path": '',
         "db_path": ''
@@ -13,6 +15,7 @@ UITK.Page {
     function fileReady(filePath) {
         python.call("kp.set_file", [filePath, pickingDB])
     }
+
     ContentHub.ContentPeerPicker {
         id: peerPicker
         visible: false
@@ -41,7 +44,7 @@ UITK.Page {
             const filePath = String(target.items[0].url).replace('file://', '')
 
             fileReady(filePath)
-            peerPicker.visible = false
+            stack.pop()
         }
     }
 
@@ -60,9 +63,10 @@ UITK.Page {
                 id: pickDB
                 text: "Pick DB"
                 onClicked: {
-                    peerPicker.visible = true
                     pickingDB = true
-                    // stack push
+                    errorMsg = ''
+                    busy = false
+                    stack.push(peerPicker)
                 }
             }
         }
@@ -80,8 +84,9 @@ UITK.Page {
                 text: "Pick Key"
                 onClicked: {
                     pickingDB = false
-                    peerPicker.visible = true
-                    // stack push
+                    stack.push(peerPicker)
+                    busy = false
+                    errorMsg = ''
                 }
             }
         }
@@ -93,17 +98,34 @@ UITK.Page {
             placeholderText: "Password"
             echoMode: TextInput.Password
             Layout.fillWidth: true
+            Keys.onReturnPressed: open_db()
+
+            onTextChanged: {
+                errorMsg = ''
+            }
         }
         UITK.Button {
             Layout.fillWidth: true
             id: openDB
             enabled: false
             text: "Open DB"
-            onClicked: {
-                python.call('kp.open_db', [password.text])
-            }
+            onClicked: open_db()
+        }
+        UITK.ActivityIndicator {
+            Layout.fillWidth: true
+            running: busy
+            visible: busy
+        }
+        UITK.Label {
+            text: errorMsg
         }
     }
+    function open_db() {
+
+        busy = true
+        python.call('kp.open_db', [password.text])
+    }
+
     Python {
         id: python
         Component.onCompleted: {
@@ -112,9 +134,14 @@ UITK.Page {
                 settings = config
                 console.log('New config', JSON.stringify(config, null, 2))
                 // FIXME:
-                python.call('kp.open_db', [password.text])
+                open_db()
+            })
+            setHandler('db_open_fail', function (reason) {
+                busy = false
+                errorMsg = reason
             })
             setHandler('db_open', function () {
+                busy = false
                 root.push_entries()
             })
             importModule('kp', function () {

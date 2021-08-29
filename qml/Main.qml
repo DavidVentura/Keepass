@@ -35,8 +35,6 @@ UITK.MainView {
         id: stack
     }
 
-    //    UITK.Page {
-    //        id: page
     function push_entries() {
         stack.push(Qt.resolvedUrl("pages/EntriesPage.qml"))
     }

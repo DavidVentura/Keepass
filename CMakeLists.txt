@@ -74,7 +74,7 @@ execute_process(
    OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 add_custom_target(no_idea ALL
-    COMMAND pip3 install -U pip==20.3.4
+    COMMAND pip3 install -U pip==20.3.4 requests
     COMMENT Building for ${CPU_ARCH}
     COMMAND pip3 install -U --platform ${CPU_ARCH} --only-binary=:all: pykeepass-rs==0.1.4 --target install/vendored
 )
