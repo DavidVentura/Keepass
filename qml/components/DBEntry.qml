@@ -11,17 +11,8 @@ UITK.ListItem {
     anchors.right: parent.right
 
     id: entireItem
-    trailingActions: UITK.ListItemActions {
+    leadingActions: UITK.ListItemActions {
         actions: [
-
-            UITK.Action {
-                visible: username
-                iconSource: "../../assets/person.png"
-                onTriggered: {
-                    UITK.Clipboard.push(username)
-                    toast.show("Username copied to clipboard")
-                }
-            },
             UITK.Action {
                 visible: url
                 iconSource: "../../assets/web.png"
@@ -36,17 +27,39 @@ UITK.ListItem {
             }
         ]
     }
+    trailingActions: UITK.ListItemActions {
+        actions: [
+
+            UITK.Action {
+                visible: username
+                iconSource: "../../assets/user.svg"
+                onTriggered: {
+                    UITK.Clipboard.push(username)
+                    toast.show("Username copied to clipboard")
+                }
+            },
+            UITK.Action {
+                visible: username
+                iconSource: "../../assets/key.svg"
+                onTriggered: {
+                    UITK.Clipboard.push(password)
+                    toast.show("Password copied to clipboard")
+                }
+            }
+        ]
+    }
     Rectangle {
         anchors.fill: parent
         color: 'white'
     }
 
     Row {
-        anchors.fill: parent
         anchors.leftMargin: units.gu(2)
         anchors.rightMargin: units.gu(2)
         anchors.topMargin: units.gu(1)
         anchors.bottomMargin: units.gu(1)
+        anchors.fill: parent
+
         spacing: units.gu(1)
         Image {
             id: entryImg
@@ -58,8 +71,7 @@ UITK.ListItem {
         }
         Column {
             id: detailsColumn
-            spacing: units.gu(0.5)
-            width: parent.width - copyIcon.width - entryImg.width - parent.spacing * 2
+            width: parent.width - parent.spacing - units.gu(6)
             Text {
                 width: parent.width
                 elide: Text.ElideRight
@@ -78,18 +90,6 @@ UITK.ListItem {
                 text: passwordVisible ? password : '••••••••'
             }
         }
-        UITK.Button {
-            id: copyIcon
-            width: units.gu(4)
-            height: parent.height
-            iconSource: "../../assets/copy.png"
-            strokeColor: 'white'
-
-            onClicked: {
-                UITK.Clipboard.push(password)
-                toast.show("Password copied to clipboard")
-            }
-        }
     }
     Rectangle {
         x: parent.x
@@ -103,6 +103,10 @@ UITK.ListItem {
         width: entryImg.width + detailsColumn.width
         height: parent.height
         onClicked: {
+            if (!settings.tapToReveal) {
+                return
+            }
+
             passwordVisible = true
             timer.restart()
         }

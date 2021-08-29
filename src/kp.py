@@ -18,7 +18,6 @@ sys.path.insert(0, vendored)
 
 from pykeepass_rs import get_all_entries
 
-CONFIG = {'key_path': ''}
 ENTRIES = []
 CACHE_PATH = Path('/home/phablet/.cache/keepass.davidv.dev')
 CACHE_ICON_PATH = CACHE_PATH / 'icons'
@@ -26,23 +25,14 @@ LOCAL_ICON_PATH = Path(here) / Path('../assets/icons')
 kp = None
 tpe = ThreadPoolExecutor()
 
-CACHE_ICON_PATH.mkdir(exist_ok=True)
 
-def save_config():
-    pyotherside.send('config', CONFIG)
+CACHE_ICON_PATH.mkdir(parents=True, exist_ok=True)
 
-def set_file(path, is_db):
-    if not is_db:
-        CONFIG['key_path'] = path
-    else:
-        CONFIG['db_path'] = path
 
-    save_config()
-
-def open_db(password):
+def open_db(db_path, key_path, password):
     global ENTRIES
     try:
-        ENTRIES = get_all_entries(CONFIG['db_path'], password=password or None, keyfile=CONFIG['key_path'] or None)
+        ENTRIES = get_all_entries(db_path, password=password or None, keyfile=key_path or None)
         pass
     except OSError as e:
         print("Bad creds! bye", e, flush=True)
@@ -132,7 +122,6 @@ def get_icon_path(domain):
 
 
 def fetch_all_icons():
-    return # FIXME
     for e in ENTRIES:
         d = domain(e['url'])
 
@@ -156,6 +145,3 @@ def html_to_icon(h):
     f = HTMLFilter()
     f.feed(h)
     return f.icons
-
-set_file('/home/phablet/kps2.kdbx', True)
-set_file('/home/phablet/kps2k', False)

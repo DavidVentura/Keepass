@@ -3,23 +3,45 @@ import Ubuntu.Content 1.3 as ContentHub
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import io.thp.pyotherside 1.3
+import Qt.labs.settings 1.0
+import "../components"
 
 UITK.Page {
+    property bool loadedKp: false
     property bool pickingDB
     property bool busy
     property string errorMsg
-    property variant settings: {
-        "key_path": '',
-        "db_path": ''
-    }
+
     function fileReady(filePath) {
-        python.call("kp.set_file", [filePath, pickingDB])
+        if (pickingDB) {
+            settings.lastDB = filePath
+        } else {
+            settings.lastKey = filePath
+        }
+    }
+    header: UITK.PageHeader {
+        id: header
+        title: "Keepass"
+        trailingActionBar.actions: [
+            UITK.Action {
+                iconName: "settings"
+                onTriggered: {
+                    stack.push(settingsPage)
+                }
+            }
+        ]
+    }
+    Settings {
+        id: settings
+        property string lastKey
+        property string lastDB
+        property bool unconfinedFiles: false
     }
 
     ContentHub.ContentPeerPicker {
         id: peerPicker
         visible: false
-        showTitle: false
+        showTitle: true
         handler: ContentHub.ContentHandler.Source
         contentType: ContentHub.ContentType.Documents
 
@@ -51,12 +73,38 @@ UITK.Page {
     ColumnLayout {
         anchors.centerIn: parent
         spacing: units.gu(1)
-        RowLayout {
-            UITK.TextField {
-                id: labelDB
-                enabled: false
-                text: settings.db_path
+        TextFieldPlaceholder {
+            Layout.fillWidth: true
+            placeholder: "Database path"
+            visible: settings.unconfinedFiles
+            placeholderVisible: true
+
+            control: UITK.TextField {
+                id: item
+                text: settings.lastDB
                 Layout.fillWidth: true
+                onTextChanged: settings.lastDB = text
+            }
+        }
+        TextFieldPlaceholder {
+            visible: settings.unconfinedFiles
+            placeholder: "Key path"
+            placeholderVisible: true
+
+            control: UITK.TextField {
+                text: settings.lastKey
+                Layout.fillWidth: true
+                onTextChanged: settings.lastKey = text
+            }
+        }
+
+        RowLayout {
+            visible: !settings.unconfinedFiles
+            UITK.TextField {
+                enabled: false
+                text: settings.lastDB
+                Layout.fillWidth: true
+                onTextChanged: settings.lastDB = text
             }
 
             UITK.Button {
@@ -71,16 +119,16 @@ UITK.Page {
             }
         }
         RowLayout {
+            visible: !settings.unconfinedFiles
             UITK.TextField {
-                id: labelKey
                 enabled: false
-                text: settings.key_path
+                text: settings.lastKey
                 Layout.fillWidth: true
+                onTextChanged: settings.lastKey = text
             }
 
             UITK.Button {
-
-                id: pickKey
+                visible: !settings.lastKey
                 text: "Pick Key"
                 onClicked: {
                     pickingDB = false
@@ -89,12 +137,19 @@ UITK.Page {
                     errorMsg = ''
                 }
             }
+            UITK.Button {
+                visible: settings.lastKey
+                text: "Clear Key"
+                onClicked: {
+                    settings.lastKey = ''
+                }
+            }
         }
 
         UITK.TextField {
             id: password
             enabled: true
-            text: 'somePassw0rd'
+            text: ''
             placeholderText: "Password"
             echoMode: TextInput.Password
             Layout.fillWidth: true
@@ -106,8 +161,8 @@ UITK.Page {
         }
         UITK.Button {
             Layout.fillWidth: true
-            id: openDB
-            enabled: false
+            enabled: loadedKp && settings.lastDB && (settings.lastKey
+                                                     || password.text)
             text: "Open DB"
             onClicked: open_db()
         }
@@ -120,22 +175,29 @@ UITK.Page {
             text: errorMsg
         }
     }
+    function hacky_refresh_unconfinedFiles() {
+        const newValue = settings.value('unconfinedFiles', '')
+        const curValue = settings.unconfinedFiles
+        // per docs, values might get "stale" if they are instanced
+        // and they change. force refresh.
+        // in 5.15 you can call settings.sync() and it is less hacky at least
+        if (newValue !== curValue) {
+            settings.unconfinedFiles = newValue
+        }
+    }
+
     function open_db() {
 
         busy = true
-        python.call('kp.open_db', [password.text])
+        python.call('kp.open_db',
+                    [settings.lastDB, settings.lastKey, password.text])
     }
 
     Python {
         id: python
         Component.onCompleted: {
             addImportPath(Qt.resolvedUrl('../../src/'))
-            setHandler('config', function (config) {
-                settings = config
-                console.log('New config', JSON.stringify(config, null, 2))
-                // FIXME:
-                open_db()
-            })
+
             setHandler('db_open_fail', function (reason) {
                 busy = false
                 errorMsg = reason
@@ -145,7 +207,7 @@ UITK.Page {
                 root.push_entries()
             })
             importModule('kp', function () {
-                openDB.enabled = true
+                loadedKp = true
             })
         }
     }

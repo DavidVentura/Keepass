@@ -2,10 +2,16 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import io.thp.pyotherside 1.3
 import Ubuntu.Components 1.3 as UITK
+import Qt.labs.settings 1.0
 
 import "../components"
 
 UITK.Page {
+    Settings {
+        id: settings
+        property bool fetchOnOpen: false
+        property bool tapToReveal: true
+    }
     property bool searchMode: false
     header: UITK.PageHeader {
         id: header
@@ -64,24 +70,22 @@ UITK.Page {
     UITK.Sections {
         z: 3
         anchors.top: header.bottom
-        x: {
-            if (width < parent.width) {
-                return parent.width / 2 - width / 2
-            }
-        }
 
-        anchors.left: {
-            if (width >= parent.width)
-                return parent.left
-        }
-        anchors.right: {
-            if (width >= parent.width)
-                return parent.right
-        }
         id: sections
         model: []
         onSelectedIndexChanged: {
             get_entries()
+        }
+
+        onImplicitWidthChanged: {
+            if (implicitWidth >= parent.width) {
+                anchors.left = parent.left
+                anchors.right = parent.right
+            } else {
+                anchors.left = undefined
+                anchors.right = undefined
+                x = parent.width / 2 - implicitWidth / 2
+            }
         }
     }
     Rectangle {
@@ -170,7 +174,9 @@ UITK.Page {
         Component.onCompleted: {
             addImportPath(Qt.resolvedUrl('../../src/'))
             importModule('kp', function () {
-                python.call('kp.fetch_all_icons')
+                if (settings.fetchOnOpen) {
+                    python.call('kp.fetch_all_icons')
+                }
             })
         }
     }

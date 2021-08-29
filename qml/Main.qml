@@ -18,8 +18,8 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
-import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3 as UITK
+
 import "./pages"
 
 UITK.MainView {
@@ -30,13 +30,24 @@ UITK.MainView {
 
     width: units.gu(45)
     height: units.gu(75)
-
+    OpenDBPage {
+        visible: false
+        id: opendbPage
+    }
     UITK.PageStack {
         id: stack
+        onDepthChanged: {
+            opendbPage.hacky_refresh_unconfinedFiles()
+        }
+    }
+
+    SettingsPage {
+        visible: false
+        id: settingsPage
     }
 
     function push_entries() {
         stack.push(Qt.resolvedUrl("pages/EntriesPage.qml"))
     }
-    Component.onCompleted: stack.push(Qt.resolvedUrl("pages/OpenDBPage.qml"))
+    Component.onCompleted: stack.push(opendbPage)
 }
