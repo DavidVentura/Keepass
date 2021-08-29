@@ -1,22 +1,26 @@
 # Keepass
 
-View entries in a KeePass (kdbx, kdbx3, kdbx4) file
+Ubuntu Phone app to view entries in a KeePass (kdbx, kdbx3, kdbx4) file
 
-## Vendoring
+## Features
 
-```bash
-# Install base pip
-apt-get install python3-pip
-# Install latest pip with support for py3.5
-# 21.0 dropped it: https://pip.pypa.io/en/stable/news/#v21-0
-pip3 install -U pip==20.3.4
-# Install dependencies
-apt-get install python3-setuptools libxml2-dev libxslt-dev python3-dev gcc libffi-dev zlib1g-dev
-# Install wheel
-pip3 install -U wheel
-# Install pykeepass into a vendored dir
-pip3 install -t aarch64 pykeepass
-```
+- Support kdbx (version 1-4) as per [keepass-rs](https://github.com/sseemayer/keepass-rs)
+  - Fast! 135 entries take 270ms on my phone, compared to 9.5s when using pykeepass
+- Multiple entry groups
+- Search in entries
+- Tap-to-reveal password
+- Open URL from entry
+- Copy user/password to clipboard
+
+## Screenshots
+
+![](https://github.com/davidventura/Keepass/blob/master/screenshots/confined.png?raw=true)
+![](https://github.com/davidventura/Keepass/blob/master/screenshots/main.png?raw=true)
+![](https://github.com/davidventura/Keepass/blob/master/screenshots/settings.png?raw=true)
+
+You can also type in arbitrary paths if your files are kept in sync via some mechanism.
+![](https://github.com/davidventura/Keepass/blob/master/screenshots/unconfined.png?raw=true)
+
 
 
 ## Test database
