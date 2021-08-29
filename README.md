@@ -1,6 +1,9 @@
 # Keepass
 
-Ubuntu Phone app to view entries in a KeePass (kdbx, kdbx3, kdbx4) file
+Ubuntu Phone app to view entries in a KeePass (kdbx, kdbx3, kdbx4) file.
+Uses [keepass-rs](https://github.com/sseemayer/keepass-rs) via [pykeepass-rs](https://github.com/sseemayer/keepass-rs).
+The app will remain read only as long as keepass-rs does not implement writing features. If you want those features,
+please go to keepass-rs first.
 
 ## Features
 
