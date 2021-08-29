@@ -11,6 +11,8 @@ Ubuntu Phone app to view entries in a KeePass (kdbx, kdbx3, kdbx4) file
 - Tap-to-reveal password
 - Open URL from entry
 - Copy user/password to clipboard
+- Download icons from your saved urls (optional, disabled by default)
+  - There's a pre-populated bunch of icons, feel free to contribute more
 
 ## Screenshots
 
