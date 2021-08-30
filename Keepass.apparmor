@@ -1,7 +1,6 @@
 {
     "policy_groups": [
         "content_exchange",
-        "document_files_read",
         "networking"
     ],
     "policy_version": 16.04
