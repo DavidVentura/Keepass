@@ -11,7 +11,9 @@ UITK.Page {
     property bool pickingDB
     property bool busy
     property string errorMsg
+    property double lastHeartbeat: 0
 
+    anchors.fill: parent
     function fileReady(filePath) {
         if (pickingDB) {
             settings.lastDB = filePath
@@ -35,7 +37,7 @@ UITK.Page {
         id: settings
         property string lastKey
         property string lastDB
-        property bool unconfinedFiles: false
+        property int autoCloseInterval: 15
     }
 
     ContentHub.ContentPeerPicker {
@@ -70,36 +72,35 @@ UITK.Page {
         }
     }
 
+    Timer {
+        interval: 1000
+        running: settings.autoCloseInterval > 0
+        repeat: true
+        onTriggered: {
+            const now = new Date().getTime()
+            if (lastHeartbeat === 0) {
+                lastHeartbeat = now
+            }
+
+            const delta = now - lastHeartbeat
+            lastHeartbeat = now
+            if (delta >= settings.autoCloseInterval * 60 * 1000) {
+                stack.pop(null)
+            }
+        }
+    }
+
     ColumnLayout {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.leftMargin: units.gu(2)
+        anchors.rightMargin: units.gu(2)
         anchors.centerIn: parent
+
         spacing: units.gu(1)
-        TextFieldPlaceholder {
-            Layout.fillWidth: true
-            placeholder: "Database path"
-            visible: settings.unconfinedFiles
-            placeholderVisible: true
-
-            control: UITK.TextField {
-                id: item
-                text: settings.lastDB
-                Layout.fillWidth: true
-                onTextChanged: settings.lastDB = text
-            }
-        }
-        TextFieldPlaceholder {
-            visible: settings.unconfinedFiles
-            placeholder: "Key path"
-            placeholderVisible: true
-
-            control: UITK.TextField {
-                text: settings.lastKey
-                Layout.fillWidth: true
-                onTextChanged: settings.lastKey = text
-            }
-        }
 
         RowLayout {
-            visible: !settings.unconfinedFiles
+            Layout.fillWidth: true
             UITK.TextField {
                 enabled: false
                 text: settings.lastDB
@@ -119,7 +120,6 @@ UITK.Page {
             }
         }
         RowLayout {
-            visible: !settings.unconfinedFiles
             UITK.TextField {
                 enabled: false
                 text: settings.lastKey
@@ -173,16 +173,6 @@ UITK.Page {
         }
         UITK.Label {
             text: errorMsg
-        }
-    }
-    function hacky_refresh_unconfinedFiles() {
-        const newValue = settings.value('unconfinedFiles', '')
-        const curValue = settings.unconfinedFiles
-        // per docs, values might get "stale" if they are instanced
-        // and they change. force refresh.
-        // in 5.15 you can call settings.sync() and it is less hacky at least
-        if (newValue !== curValue) {
-            settings.unconfinedFiles = newValue
         }
     }
 

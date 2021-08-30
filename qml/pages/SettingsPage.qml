@@ -22,7 +22,6 @@ UITK.Page {
             Settings {
                 id: settings
                 property bool fetchOnOpen: false
-                property bool unconfinedFiles: false
                 property int autoCloseInterval: 15
                 property bool tapToReveal: true
             }
@@ -45,14 +44,7 @@ UITK.Page {
                     checked: settings.tapToReveal
                 }
             }
-            SettingsItem {
-                title: 'Allow selecting key/db from ~/Documents'
-                description: 'You will have to type in the path manually, but those files can be kept in sync by external programs'
-                control: UITK.Switch {
-                    onCheckedChanged: settings.unconfinedFiles = checked
-                    checked: settings.unconfinedFiles
-                }
-            }
+
             SettingsItem {
                 title: 'Auto-close db after inactivity'
                 description: 'In minutes. 0 for disabled. Doesn\'t really work yet.'

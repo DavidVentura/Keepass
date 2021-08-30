@@ -36,9 +36,6 @@ UITK.MainView {
     }
     UITK.PageStack {
         id: stack
-        onDepthChanged: {
-            opendbPage.hacky_refresh_unconfinedFiles()
-        }
     }
 
     SettingsPage {

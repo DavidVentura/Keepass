@@ -16,6 +16,7 @@ please go to keepass-rs first.
 - Copy user/password to clipboard
 - Download icons from your saved urls (optional, disabled by default)
   - There's a pre-populated bunch of icons, feel free to contribute more
+- Automatically close database after a configurable period of inactivity
 
 ## Screenshots
 

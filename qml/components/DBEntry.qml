@@ -93,13 +93,7 @@ UITK.ListItem {
             }
         }
     }
-    Rectangle {
-        x: parent.x
-        width: parent.width
-        y: parent.height - height
-        height: units.gu(0.1)
-        color: theme.palette.normal.backgroundTertiaryText
-    }
+
     MouseArea {
         x: parent.x
         width: entryImg.width + detailsColumn.width
