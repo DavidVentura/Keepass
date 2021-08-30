@@ -45,13 +45,14 @@ def get_groups():
     return sorted(set(e['group'] for e in ENTRIES))
 
 def get_entries(group_name, search_term):
+    search_term = search_term.lower()
     print('search term', search_term, flush=True)
     return [{**entry, 'icon_path': str(get_icon_path(domain(entry['url'])))}
             for entry in ENTRIES
-            if group_name in entry['group'] and
-            (search_term in entry['username'] or
-             search_term in entry['url'] or
-             search_term in entry['title'])]
+            if group_name == entry['group'] and
+            (search_term in entry['username'].lower() or
+             search_term in entry['url'].lower() or
+             search_term in entry['title'].lower())]
 
 
 def domain(url):
