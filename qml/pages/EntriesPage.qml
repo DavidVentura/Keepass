@@ -22,7 +22,7 @@ UITK.Page {
             UITK.TextField {
                 visible: searchMode
                 id: searchField
-                placeholderText: "Search"
+                placeholderText: i18n.ctr("text for search placeholder","Search")
                 anchors.fill: parent
                 anchors.topMargin: units.gu(1)
                 anchors.bottomMargin: units.gu(1)
@@ -38,7 +38,7 @@ UITK.Page {
                 visible: !searchMode
                 anchors.fill: parent
                 verticalAlignment: Qt.AlignVCenter
-                text: 'Passwords'
+                text: i18n.tr("Passwords")
             }
             Timer {
                 id: searchTimer
@@ -52,7 +52,7 @@ UITK.Page {
         trailingActionBar.actions: [
             UITK.Action {
                 iconName: "find"
-                text: "Search"
+                text: i18n.tr("Search")
                 onTriggered: {
                     if (searchMode) {
                         get_entries()

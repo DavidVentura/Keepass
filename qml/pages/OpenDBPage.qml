@@ -111,7 +111,8 @@ UITK.Page {
 
             UITK.Button {
                 id: pickDB
-                text: "Pick DB"
+                // TRANSLATORS: DB is the abbreviation for database
+                text: i18n.tr("Pick DB")
                 onClicked: {
                     pickingDB = true
                     errorMsg = ''
@@ -130,7 +131,7 @@ UITK.Page {
 
             UITK.Button {
                 visible: !settings.lastKey
-                text: "Pick Key"
+                text: i18n.tr("Pick Key")
                 onClicked: {
                     pickingDB = false
                     stack.push(peerPicker)
@@ -140,7 +141,7 @@ UITK.Page {
             }
             UITK.Button {
                 visible: settings.lastKey
-                text: "Clear Key"
+                text: i18n.tr("Clear Key")
                 onClicked: {
                     settings.lastKey = ''
                 }
@@ -151,7 +152,7 @@ UITK.Page {
             id: password
             enabled: true
             text: ''
-            placeholderText: "Password"
+            placeholderText: i18n.tr("Password")
             echoMode: TextInput.Password
             Layout.fillWidth: true
             Keys.onReturnPressed: open_db()
@@ -164,7 +165,8 @@ UITK.Page {
             Layout.fillWidth: true
             enabled: loadedKp && settings.lastDB && (settings.lastKey
                                                      || password.text)
-            text: "Open DB"
+            // TRANSLATORS: DB is the abbreviation for database
+            text: i18n.tr("Open DB")
             onClicked: open_db()
         }
         UITK.ActivityIndicator {
