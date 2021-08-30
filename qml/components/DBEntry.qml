@@ -50,7 +50,7 @@ UITK.ListItem {
     }
     Rectangle {
         anchors.fill: parent
-        color: 'white'
+        color: theme.palette.normal.background
     }
 
     Row {
@@ -77,17 +77,19 @@ UITK.ListItem {
                 elide: Text.ElideRight
                 text: title
                 font.pointSize: units.gu(1.5)
+                color: theme.palette.normal.foregroundText
             }
 
             Text {
                 width: parent.width
                 elide: Text.ElideRight
-                color: '#666'
+                color: theme.palette.normal.backgroundTertiaryText
                 text: username
             }
 
             Text {
                 text: passwordVisible ? password : '••••••••'
+                color: theme.palette.normal.backgroundTertiaryText
             }
         }
     }
@@ -96,7 +98,7 @@ UITK.ListItem {
         width: parent.width
         y: parent.height - height
         height: units.gu(0.1)
-        color: '#ddd'
+        color: theme.palette.normal.backgroundTertiaryText
     }
     MouseArea {
         x: parent.x

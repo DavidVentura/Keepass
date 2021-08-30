@@ -94,7 +94,7 @@ UITK.Page {
         anchors.bottom: sections.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        color: 'white'
+        color: theme.palette.normal.background
     }
 
     ListView {

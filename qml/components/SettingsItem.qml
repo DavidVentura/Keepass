@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import Ubuntu.Components 1.3 as UITK
 
 Row {
     property string title
@@ -15,12 +16,12 @@ Row {
         spacing: units.gu(0.2)
         width: parent.width - loader.width - parent.spacing
         anchors.verticalCenter: parent.verticalCenter
-        Text {
+        UITK.Label {
             anchors.left: parent.left
             anchors.right: parent.right
             text: title
         }
-        Text {
+        UITK.Label {
             visible: description !== ''
             anchors.left: parent.left
             anchors.right: parent.right
