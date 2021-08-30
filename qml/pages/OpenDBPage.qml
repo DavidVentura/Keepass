@@ -73,7 +73,7 @@ UITK.Page {
     }
 
     Timer {
-        interval: 1000
+        interval: 2000
         running: settings.autoCloseInterval > 0
         repeat: true
         onTriggered: {
@@ -84,7 +84,8 @@ UITK.Page {
 
             const delta = now - lastHeartbeat
             lastHeartbeat = now
-            if (delta >= settings.autoCloseInterval * 60 * 1000) {
+            if (stack.depth > 1
+                    && delta >= settings.autoCloseInterval * 60 * 1000) {
                 stack.pop(null)
             }
         }
