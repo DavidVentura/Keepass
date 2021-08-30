@@ -21,12 +21,15 @@ from pykeepass_rs import get_all_entries
 ENTRIES = []
 CACHE_PATH = Path('/home/phablet/.cache/keepass.davidv.dev')
 CACHE_ICON_PATH = CACHE_PATH / 'icons'
+FAILED_ICON_PATH = CACHE_PATH / 'failed_icons'
 LOCAL_ICON_PATH = Path(here) / Path('../assets/icons')
+PLACEHOLDER_ICON = Path(here) / Path('../assets/placeholder.svg')
 kp = None
 tpe = ThreadPoolExecutor()
 
 
 CACHE_ICON_PATH.mkdir(parents=True, exist_ok=True)
+FAILED_ICON_PATH.mkdir(parents=True, exist_ok=True)
 
 
 def open_db(db_path, key_path, password):
@@ -46,13 +49,22 @@ def get_groups():
 
 def get_entries(group_name, search_term):
     search_term = search_term.lower()
-    print('search term', search_term, flush=True)
-    return [{**entry, 'icon_path': str(get_icon_path(domain(entry['url'])))}
-            for entry in ENTRIES
-            if group_name == entry['group'] and
-            (search_term in entry['username'].lower() or
-             search_term in entry['url'].lower() or
-             search_term in entry['title'].lower())]
+    _entries = []
+    for entry in ENTRIES:
+        if group_name != entry['group']:
+            continue
+        if not (search_term in entry['username'].lower() or
+                search_term in entry['url'].lower() or
+                search_term in entry['title'].lower()):
+            continue
+        _path = get_icon_path(domain(entry['url']))
+        if not _path.exists():
+            _path = PLACEHOLDER_ICON
+        _entry = {**entry,
+                  'icon_path': str(_path)
+                  }
+        _entries.append(_entry)
+    return _entries
 
 
 def domain(url):
@@ -60,11 +72,17 @@ def domain(url):
         return url
     return urlparse(url).netloc
 
+def is_failed(domain):
+    return (FAILED_ICON_PATH / domain).exists()
+
+def mark_failed(domain):
+    with (FAILED_ICON_PATH / domain).open('w'):
+        pass
+
 @lru_cache(maxsize=512) # hack to avoid calling this repeatedly
 def fetch_icon(domain):
     if not domain:
         return
-    print('fetching', domain)
 
     url = 'https://' + domain
     req = Request(url)
@@ -76,17 +94,18 @@ def fetch_icon(domain):
         html_reply = requests.get(url, timeout=2)
     except Exception as e:
         print('While fetching HTML for', url, e, flush=True)
+        mark_failed(domain)
         return
     if not html_reply.ok:
-        #print(html_reply.text)
-        #print(html_reply.url, html_reply.headers, html_reply.status_code, flush=True)
         print('failed', html_reply.url)
+        mark_failed(domain)
         return
 
     data = html_reply.text
 
     icon_urls = html_to_icon(data)
     if not icon_urls:
+        mark_failed(domain)
         return
 
     print('For', domain,  'found', icon_urls)
@@ -104,10 +123,12 @@ def fetch_icon(domain):
         with urlopen(req, timeout=5) as reply:
             if reply.status != 200:
                 print(reply.url, reply.headers, reply.status, flush=True)
+                mark_failed(domain)
                 return
             icon_data = reply.read()
     except Exception as e:
         print('While fetching icon for', icon_url, e, flush=True)
+        mark_failed(domain)
         return
 
     with get_icon_path(domain).open('wb') as fd:
@@ -125,9 +146,10 @@ def get_icon_path(domain):
 def fetch_all_icons():
     for e in ENTRIES:
         d = domain(e['url'])
+        if is_failed(d):
+            continue
 
         icon_path = get_icon_path(d)
-        print(e, d, icon_path)
         if not icon_path.exists():
             tpe.submit(fetch_icon, d)
             # fetch_icon(d)
