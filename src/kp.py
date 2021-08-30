@@ -23,20 +23,29 @@ CACHE_PATH = Path('/home/phablet/.cache/keepass.davidv.dev')
 CACHE_ICON_PATH = CACHE_PATH / 'icons'
 FAILED_ICON_PATH = CACHE_PATH / 'failed_icons'
 LOCAL_ICON_PATH = Path(here) / Path('../assets/icons')
-PLACEHOLDER_ICON = Path(here) / Path('../assets/placeholder.svg')
+PLACEHOLDER_ICON = Path(here) / Path('../assets/placeholder.png')
+APP_DATA_PATH = Path('/home/phablet/.local/share/keepass.davidv.dev')
+KEY_DB_PATH = APP_DATA_PATH / 'keys_and_dbs'
 kp = None
 tpe = ThreadPoolExecutor()
 
 
 CACHE_ICON_PATH.mkdir(parents=True, exist_ok=True)
 FAILED_ICON_PATH.mkdir(parents=True, exist_ok=True)
+KEY_DB_PATH.mkdir(parents=True, exist_ok=True)
 
+def set_file(path, is_db):
+    path = Path(path)
+    with path.open('rb') as fd_from:
+        to = KEY_DB_PATH / path.name
+        with to.open('wb') as fd_to:
+            fd_to.write(fd_from.read())
+        return str(to)
 
 def open_db(db_path, key_path, password):
     global ENTRIES
     try:
         ENTRIES = get_all_entries(db_path, password=password or None, keyfile=key_path or None)
-        pass
     except OSError as e:
         print("Bad creds! bye", e, flush=True)
         pyotherside.send('db_open_fail', str(e))

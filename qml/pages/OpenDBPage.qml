@@ -14,13 +14,7 @@ UITK.Page {
     property double lastHeartbeat: 0
 
     anchors.fill: parent
-    function fileReady(filePath) {
-        if (pickingDB) {
-            settings.lastDB = filePath
-        } else {
-            settings.lastKey = filePath
-        }
-    }
+
     header: UITK.PageHeader {
         id: header
         title: "Keepass"
@@ -67,8 +61,14 @@ UITK.Page {
             }
             const filePath = String(target.items[0].url).replace('file://', '')
 
-            fileReady(filePath)
-            stack.pop()
+            python.call('kp.set_file', [filePath, pickingDB], function (path) {
+                if (pickingDB) {
+                    settings.lastDB = path
+                } else {
+                    settings.lastKey = path
+                }
+                stack.pop()
+            })
         }
     }
 
