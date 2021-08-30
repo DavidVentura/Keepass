@@ -94,10 +94,10 @@ UITK.Page {
     ColumnLayout {
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.leftMargin: units.gu(2)
-        anchors.rightMargin: units.gu(2)
-        anchors.centerIn: parent
 
+        anchors.leftMargin: units.gu(7)
+        anchors.rightMargin: units.gu(7)
+        anchors.verticalCenter: parent.verticalCenter
         spacing: units.gu(1)
 
         RowLayout {
@@ -173,7 +173,9 @@ UITK.Page {
             visible: busy
         }
         UITK.Label {
+            Layout.fillWidth: true
             text: errorMsg
+            wrapMode: Text.WordWrap
         }
     }
 
