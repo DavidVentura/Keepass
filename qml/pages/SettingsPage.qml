@@ -29,16 +29,16 @@ UITK.Page {
             anchors.fill: parent
             spacing: units.gu(2)
             SettingsItem {
-                title: 'Download icons'
-                description: 'Download page icons on database open'
+                title: i18n.ctr("download icon setting","Download icons")
+                description: i18n.ctr("description for icon download setting","Download page icons on database open")
                 control: UITK.Switch {
                     onCheckedChanged: settings.fetchOnOpen = checked
                     checked: settings.fetchOnOpen
                 }
             }
             SettingsItem {
-                title: 'Tap on entries to reveal password'
-                description: 'They will stay on screen for one second'
+                title: i18n.ctr("tap to reveal passwort setting","Tap on entries to reveal password")
+                description: i18n.ctr("description for tap to reveal passwort setting","They will stay on screen for one second")
                 control: UITK.Switch {
                     onCheckedChanged: settings.tapToReveal = checked
                     checked: settings.tapToReveal
@@ -46,8 +46,9 @@ UITK.Page {
             }
 
             SettingsItem {
-                title: 'Auto-close db after inactivity'
-                description: 'In minutes. 0 for disabled.'
+                // TRANSLATORS: DB is the abbreviation for database
+                title: i18n.ctr("auto-close time for database setting","Auto-close db after inactivity")
+                description: i18n.ctr("description for auto-close setting","In minutes. 0 for disabled.")
                 control: UITK.TextField {
                     inputMethodHints: Qt.ImhDigitsOnly
                     text: settings.autoCloseInterval
