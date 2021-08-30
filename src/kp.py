@@ -43,9 +43,9 @@ def set_file(path, is_db):
         return str(to)
 
 def open_db(db_path, key_path, password):
-    global ENTRIES
+    global ENTRIES, GROUPS
     try:
-        ENTRIES = get_all_entries(db_path, password=password or None, keyfile=key_path or None)
+        GROUPS,  ENTRIES = get_all_entries(db_path, password=password or None, keyfile=key_path or None)
     except OSError as e:
         print("Bad creds! bye", e, flush=True)
         pyotherside.send('db_open_fail', str(e))
@@ -54,7 +54,7 @@ def open_db(db_path, key_path, password):
     pyotherside.send('db_open')
 
 def get_groups():
-    return sorted(set(e['group'] for e in ENTRIES))
+    return GROUPS
 
 def get_entries(group_name, search_term):
     search_term = search_term.lower()
