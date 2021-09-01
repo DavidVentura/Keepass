@@ -11,22 +11,30 @@ UITK.ListItem {
     anchors.right: parent.right
 
     id: entireItem
-    leadingActions: UITK.ListItemActions {
-        actions: [
-            UITK.Action {
-                visible: url
-                iconSource: "../../assets/web.png"
-                onTriggered: {
-                    if (url.indexOf('//') === -1) {
-                        Qt.openUrlExternally('http://' + url)
-                        return
-                    }
+    // leadingActions: UITK.ListItemActions {
+    //     actions: [
+    //         UITK.Action {
+    //             visible: url
+    //             // iconSource: "../../assets/web.png"
+    //             onTriggered: {
+    //                 if (url.indexOf('//') === -1) {
+    //                     Qt.openUrlExternally('http://' + url)
+    //                     return
+    //                 }
+    //
+    //                 Qt.openUrlExternally(url)
+    //             }
+    //         }
+    //     ]
+    // }
 
-                    Qt.openUrlExternally(url)
-                }
-            }
-        ]
+    //override the trailing action panels defaul colors
+    //use #808080 for icon color, this is the default keycolor of `Icon` and will then be changed to the themed color
+    UITK.StyleHints {
+        trailingPanelColor: theme.palette.normal.foreground
+        trailingForegroundColor: theme.palette.normal.foregroundText
     }
+
     trailingActions: UITK.ListItemActions {
         actions: [
 
@@ -44,6 +52,18 @@ UITK.ListItem {
                 onTriggered: {
                     UITK.Clipboard.push(password)
                     toast.show("Password copied to clipboard")
+                }
+            },
+            UITK.Action {
+                visible: url
+                iconName: "external-link"
+                onTriggered: {
+                    if (url.indexOf('//') === -1) {
+                        Qt.openUrlExternally('http://' + url)
+                        return
+                    }
+
+                    Qt.openUrlExternally(url)
                 }
             }
         ]
