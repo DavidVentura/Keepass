@@ -38,7 +38,7 @@ UITK.Page {
             }
             SettingsItem {
                 title: 'Tap on entries to reveal password'
-                description: 'Download page icons on database open'
+                description: 'They will stay on screen for one second'
                 control: UITK.Switch {
                     onCheckedChanged: settings.tapToReveal = checked
                     checked: settings.tapToReveal
@@ -47,7 +47,7 @@ UITK.Page {
 
             SettingsItem {
                 title: 'Auto-close db after inactivity'
-                description: 'In minutes. 0 for disabled. Doesn\'t really work yet.'
+                description: 'In minutes. 0 for disabled.'
                 control: UITK.TextField {
                     inputMethodHints: Qt.ImhDigitsOnly
                     text: settings.autoCloseInterval
