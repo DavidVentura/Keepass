@@ -1,0 +1,93 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the keepass.davidv.dev package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: keepass.davidv.dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-01 20:39+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../qml/pages/EntriesPage.qml:25
+msgctxt "text for search placeholder"
+msgid "Search"
+msgstr ""
+
+#: ../qml/pages/EntriesPage.qml:41
+msgid "Passwords"
+msgstr ""
+
+#: ../qml/pages/EntriesPage.qml:55
+msgid "Search"
+msgstr ""
+
+#. TRANSLATORS: DB is the abbreviation for database
+#: ../qml/pages/OpenDBPage.qml:118
+msgid "Pick DB"
+msgstr ""
+
+#: ../qml/pages/OpenDBPage.qml:137
+msgid "Pick Key"
+msgstr ""
+
+#: ../qml/pages/OpenDBPage.qml:147
+msgid "Clear Key"
+msgstr ""
+
+#: ../qml/pages/OpenDBPage.qml:158
+msgid "Password"
+msgstr ""
+
+#. TRANSLATORS: DB is the abbreviation for database
+#: ../qml/pages/OpenDBPage.qml:172
+msgid "Open DB"
+msgstr ""
+
+#: ../qml/pages/SettingsPage.qml:10
+msgctxt "page header"
+msgid "Settings"
+msgstr ""
+
+#: ../qml/pages/SettingsPage.qml:32
+msgctxt "download icon setting"
+msgid "Download icons"
+msgstr ""
+
+#: ../qml/pages/SettingsPage.qml:33
+msgctxt "description for icon download setting"
+msgid "Download page icons on database open"
+msgstr ""
+
+#: ../qml/pages/SettingsPage.qml:40
+msgctxt "tap to reveal passwort setting"
+msgid "Tap on entries to reveal password"
+msgstr ""
+
+#: ../qml/pages/SettingsPage.qml:41
+msgctxt "description for tap to reveal passwort setting"
+msgid "They will stay on screen for one second"
+msgstr ""
+
+#. TRANSLATORS: DB is the abbreviation for database
+#: ../qml/pages/SettingsPage.qml:50
+msgctxt "auto-close time for database setting"
+msgid "Auto-close db after inactivity"
+msgstr ""
+
+#: ../qml/pages/SettingsPage.qml:51
+msgctxt "description for auto-close setting"
+msgid "In minutes. 0 for disabled."
+msgstr ""
+
+#: Keepass.desktop.in.h:1
+msgid "Keepass"
+msgstr ""
