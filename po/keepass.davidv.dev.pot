@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: keepass.davidv.dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-01 09:14+0000\n"
+"POT-Creation-Date: 2021-09-01 20:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,24 +31,24 @@ msgid "Search"
 msgstr ""
 
 #. TRANSLATORS: DB is the abbreviation for database
-#: ../qml/pages/OpenDBPage.qml:115
+#: ../qml/pages/OpenDBPage.qml:118
 msgid "Pick DB"
 msgstr ""
 
-#: ../qml/pages/OpenDBPage.qml:134
+#: ../qml/pages/OpenDBPage.qml:137
 msgid "Pick Key"
 msgstr ""
 
-#: ../qml/pages/OpenDBPage.qml:144
+#: ../qml/pages/OpenDBPage.qml:147
 msgid "Clear Key"
 msgstr ""
 
-#: ../qml/pages/OpenDBPage.qml:155
+#: ../qml/pages/OpenDBPage.qml:158
 msgid "Password"
 msgstr ""
 
 #. TRANSLATORS: DB is the abbreviation for database
-#: ../qml/pages/OpenDBPage.qml:169
+#: ../qml/pages/OpenDBPage.qml:172
 msgid "Open DB"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgstr ""
 
 #: ../qml/pages/SettingsPage.qml:41
 msgctxt "description for tap to reveal passwort setting"
-msgid "Download page icons on database open"
+msgid "They will stay on screen for one second"
 msgstr ""
 
 #. TRANSLATORS: DB is the abbreviation for database
@@ -85,7 +85,7 @@ msgstr ""
 
 #: ../qml/pages/SettingsPage.qml:51
 msgctxt "description for auto-close setting"
-msgid "In minutes. 0 for disabled. Doesn't really work yet."
+msgid "In minutes. 0 for disabled."
 msgstr ""
 
 #: Keepass.desktop.in.h:1
