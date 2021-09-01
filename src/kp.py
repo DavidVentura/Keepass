@@ -1,5 +1,6 @@
 import os
 import sys
+import platform
 
 import requests
 import pyotherside
@@ -33,6 +34,10 @@ tpe = ThreadPoolExecutor()
 CACHE_ICON_PATH.mkdir(parents=True, exist_ok=True)
 FAILED_ICON_PATH.mkdir(parents=True, exist_ok=True)
 KEY_DB_PATH.mkdir(parents=True, exist_ok=True)
+
+
+def is_armv7():
+    return '32' in platform.architecture()[0]
 
 def set_file(path, is_db):
     path = Path(path)
