@@ -70,7 +70,8 @@ UITK.Page {
     UITK.Sections {
         z: 3
         anchors.top: header.bottom
-
+        anchors.left: parent.left
+        anchors.right: parent.right
         id: sections
         model: []
         onSelectedIndexChanged: {
@@ -78,14 +79,16 @@ UITK.Page {
         }
 
         onImplicitWidthChanged: {
-            if (implicitWidth >= parent.width) {
-                anchors.left = parent.left
-                anchors.right = parent.right
-            } else {
-                anchors.left = undefined
-                anchors.right = undefined
-                x = parent.width / 2 - implicitWidth / 2
-            }
+
+            // Can't get this to center without screwing up for longer content
+            //            if (implicitWidth >= parent.width) {
+            //                anchors.left = parent.left
+            //                anchors.right = parent.right
+            //            } else {
+            //                anchors.left = undefined
+            //                anchors.right = undefined
+            //                x = parent.width / 2 - implicitWidth / 2
+            //            }
         }
     }
     Rectangle {
