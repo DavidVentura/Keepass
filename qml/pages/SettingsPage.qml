@@ -7,7 +7,7 @@ UITK.Page {
 
     header: UITK.PageHeader {
         id: header
-        title: "Settings"
+        title: i18n.ctr("page header","Settings")
     }
     Flickable {
         id: flick

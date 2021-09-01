@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: keepass.davidv.dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-30 20:20+0000\n"
+"POT-Creation-Date: 2021-09-01 09:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,6 +50,11 @@ msgstr ""
 #. TRANSLATORS: DB is the abbreviation for database
 #: ../qml/pages/OpenDBPage.qml:169
 msgid "Open DB"
+msgstr ""
+
+#: ../qml/pages/SettingsPage.qml:10
+msgctxt "page header"
+msgid "Settings"
 msgstr ""
 
 #: ../qml/pages/SettingsPage.qml:32

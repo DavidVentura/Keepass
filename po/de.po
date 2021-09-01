@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: keepass.davidv.dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-30 20:20+0000\n"
-"PO-Revision-Date: 2021-08-30 22:40+0200\n"
+"POT-Creation-Date: 2021-09-01 09:14+0000\n"
+"PO-Revision-Date: 2021-09-01 11:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -52,6 +52,11 @@ msgstr "Passwort"
 #: ../qml/pages/OpenDBPage.qml:169
 msgid "Open DB"
 msgstr "Öffne DB"
+
+#: ../qml/pages/SettingsPage.qml:10
+msgctxt "page header"
+msgid "Settings"
+msgstr "Einstellungen"
 
 #: ../qml/pages/SettingsPage.qml:32
 msgctxt "download icon setting"
