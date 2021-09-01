@@ -1,7 +1,9 @@
 import Ubuntu.Components 1.3 as UITK
+import Ubuntu.Components.Popups 1.3 as UC
 import Ubuntu.Content 1.3 as ContentHub
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Controls 2.12
 import io.thp.pyotherside 1.3
 import Qt.labs.settings 1.0
 import "../components"
@@ -32,6 +34,7 @@ UITK.Page {
         property string lastKey
         property string lastDB
         property int autoCloseInterval: 15
+        property bool knowsAboutSlowKDBX4: false
     }
 
     ContentHub.ContentPeerPicker {
@@ -179,6 +182,26 @@ UITK.Page {
         }
     }
 
+    Component {
+        id: cpu_version_component
+        UC.Dialog {
+            id: cpu_version_popup
+            title: "Database version compatibility"
+            modal: true
+            text: "You are running on an ARMv7 device in which databases version 4 (kdbx4) are <b>extremely</b> slow. <br/> \
+I don't know why yet, it is an issue with keepass-rs.<br/> \
+For your sanity, make sure your database is version 3 (kdbx3)"
+
+            UITK.Button {
+                text: "Ok"
+                onClicked: {
+                    PopupUtils.close(cpu_version_popup)
+                    settings.knowsAboutSlowKDBX4 = true
+                }
+            }
+        }
+    }
+
     function open_db() {
 
         busy = true
@@ -201,6 +224,12 @@ UITK.Page {
             })
             importModule('kp', function () {
                 loadedKp = true
+            })
+
+            python.call('kp.is_armv7', [], function (result) {
+                if (result && !settings.knowsAboutSlowKDBX4) {
+                    PopupUtils.open(cpu_version_component)
+                }
             })
         }
     }
