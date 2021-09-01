@@ -35,6 +35,7 @@ UITK.Page {
         property string lastDB
         property int autoCloseInterval: 15
         property bool knowsAboutSlowKDBX4: false
+        property bool showRecycleBin: false
     }
 
     ContentHub.ContentPeerPicker {
@@ -208,7 +209,7 @@ For your sanity, make sure your database is version 3 (kdbx3)"
 
         busy = true
         python.call('kp.open_db',
-                    [settings.lastDB, settings.lastKey, password.text])
+                    [settings.lastDB, settings.lastKey, password.text, settings.showRecycleBin])
     }
 
     Python {

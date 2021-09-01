@@ -24,6 +24,7 @@ UITK.Page {
                 property bool fetchOnOpen: false
                 property int autoCloseInterval: 15
                 property bool tapToReveal: true
+                property bool showRecycleBin: false
             }
             id: col
             anchors.fill: parent
@@ -70,6 +71,14 @@ UITK.Page {
                         bottom: 0
                         top: 100
                     }
+                }
+            }
+            SettingsItem {
+                title: 'Show the "Recycle bin" group'
+                description: 'This group contains all the deleted entries'
+                control: UITK.Switch {
+                    onCheckedChanged: settings.showRecycleBin = checked
+                    checked: settings.showRecycleBin
                 }
             }
         }

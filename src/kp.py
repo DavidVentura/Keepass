@@ -17,7 +17,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 vendored = os.path.join(here, '..', 'vendored')
 sys.path.insert(0, vendored)
 
-from pykeepass_rs import get_all_entries
+from pykeepass_rs import get_meta_and_entries
 
 ENTRIES = []
 CACHE_PATH = Path('/home/phablet/.cache/keepass.davidv.dev')
@@ -47,14 +47,24 @@ def set_file(path, is_db):
             fd_to.write(fd_from.read())
         return str(to)
 
-def open_db(db_path, key_path, password):
+def open_db(db_path, key_path, password, show_recycle_bin):
     global ENTRIES, GROUPS
     try:
-        GROUPS,  ENTRIES = get_all_entries(db_path, password=password or None, keyfile=key_path or None)
+        meta, ENTRIES = get_meta_and_entries(db_path, password=password or None, keyfile=key_path or None)
     except OSError as e:
         print("Bad creds! bye", e, flush=True)
         pyotherside.send('db_open_fail', str(e))
         return
+
+    print('recycle?', show_recycle_bin, flush=True)
+    GROUPS = []
+    for e in ENTRIES:
+        g = e['group_name']
+        if g in GROUPS:
+            continue
+        if e['group_uuid'] == meta['recycle_bin_uuid'] and not show_recycle_bin:
+            continue
+        GROUPS.append(g)
 
     pyotherside.send('db_open')
 
@@ -65,7 +75,7 @@ def get_entries(group_name, search_term):
     search_term = search_term.lower()
     _entries = []
     for entry in ENTRIES:
-        if group_name != entry['group']:
+        if group_name != entry['group_name']:
             continue
         if not (search_term in entry['username'].lower() or
                 search_term in entry['url'].lower() or
