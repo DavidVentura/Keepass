@@ -25,6 +25,7 @@ UITK.Page {
                 property int autoCloseInterval: 15
                 property bool tapToReveal: true
                 property bool showRecycleBin: false
+                property bool changeGroupOnSearch: true
             }
             id: col
             anchors.fill: parent
@@ -88,6 +89,18 @@ UITK.Page {
                 control: UITK.Switch {
                     onCheckedChanged: settings.showRecycleBin = checked
                     checked: settings.showRecycleBin
+                }
+            }
+            SettingsItem {
+                title: i18n.ctr("change section on search setting",
+                                'Change section on search')
+                description: i18n.ctr(
+                                 "description for change section on search setting",
+                                 'Change section automatically if there are no results for the \
+search value in the current section, and there are results in another section')
+                control: UITK.Switch {
+                    onCheckedChanged: settings.changeGroupOnSearch = checked
+                    checked: settings.changeGroupOnSearch
                 }
             }
         }

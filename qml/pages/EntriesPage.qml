@@ -12,6 +12,7 @@ UITK.Page {
         property bool fetchOnOpen: false
         property bool tapToReveal: true
         property bool showRecycleBin: false
+        property bool changeGroupOnSearch: true
     }
     property bool searchMode: false
     header: UITK.PageHeader {
@@ -168,10 +169,19 @@ UITK.Page {
         python.call('kp.get_entries', [searchField.text || ''],
                     function (items) {
                         listmodel.clear()
-                        // TODO: take to tab
-                        items = items[group] || []
-                        for (var i = 0; i < items.length; i++) {
-                            const item = items[i]
+                        let entries = items[group] || []
+
+                        if (settings.changeGroupOnSearch && !entries.length) {
+                            const keys = Object.keys(items)
+                            if (keys.length) {
+                                sections.selectedIndex = sections.model.indexOf(
+                                            keys[0])
+                                return
+                            }
+                        }
+
+                        for (var i = 0; i < entries.length; i++) {
+                            const item = entries[i]
                             listmodel.append(item)
                         }
                     })
