@@ -24,10 +24,6 @@ please go to keepass-rs first.
 ![](https://github.com/davidventura/Keepass/blob/master/screenshots/main.png?raw=true)
 ![](https://github.com/davidventura/Keepass/blob/master/screenshots/settings.png?raw=true)
 
-You can also type in arbitrary paths if your files are kept in sync via some mechanism.
-![](https://github.com/davidventura/Keepass/blob/master/screenshots/unconfined.png?raw=true)
-
-
 
 ## Test database
 
