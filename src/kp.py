@@ -20,6 +20,8 @@ sys.path.insert(0, vendored)
 from pykeepass_rs import get_meta_and_entries
 
 ENTRIES = []
+GROUPS = []
+META = {}
 CACHE_PATH = Path('/home/phablet/.cache/keepass.davidv.dev')
 CACHE_ICON_PATH = CACHE_PATH / 'icons'
 FAILED_ICON_PATH = CACHE_PATH / 'failed_icons'
@@ -47,47 +49,47 @@ def set_file(path, is_db):
             fd_to.write(fd_from.read())
         return str(to)
 
-def open_db(db_path, key_path, password, show_recycle_bin):
-    global ENTRIES, GROUPS
+def open_db(db_path, key_path, password):
+    global META, ENTRIES, GROUPS
     try:
-        meta, ENTRIES = get_meta_and_entries(db_path, password=password or None, keyfile=key_path or None)
+        META, GROUPS, ENTRIES = get_meta_and_entries(db_path, password=password or None, keyfile=key_path or None)
     except OSError as e:
         print("Bad creds! bye", e, flush=True)
         pyotherside.send('db_open_fail', str(e))
         return
 
-    print('recycle?', show_recycle_bin, flush=True)
-    GROUPS = []
-    for e in ENTRIES:
-        g = e['group_name']
-        if g in GROUPS:
-            continue
-        if e['group_uuid'] == meta['recycle_bin_uuid'] and not show_recycle_bin:
-            continue
-        GROUPS.append(g)
-
     pyotherside.send('db_open')
 
-def get_groups():
-    return GROUPS
+def get_groups(show_recycle_bin):
+    _groups = []
+    _trash_name = ''
+    for uuid, g in GROUPS.items():
+        if uuid == META['recycle_bin_uuid']:
+            _trash_name = g['name']
+            if not show_recycle_bin:
+                continue
+        _groups.append(g['name'])
+
+    return sorted(_groups, key=lambda x: (x == _trash_name, x))
 
 def get_entries(group_name, search_term):
     search_term = search_term.lower()
     _entries = []
-    for entry in ENTRIES:
-        if group_name != entry['group_name']:
-            continue
-        if not (search_term in entry['username'].lower() or
-                search_term in entry['url'].lower() or
-                search_term in entry['title'].lower()):
-            continue
-        _path = get_icon_path(domain(entry['url']))
-        if not _path.exists():
-            _path = PLACEHOLDER_ICON
-        _entry = {**entry,
-                  'icon_path': str(_path)
-                  }
-        _entries.append(_entry)
+    for group_uuid, entries in ENTRIES.items():
+        for entry in entries:
+            if group_name != GROUPS[group_uuid]['name']:
+                continue
+            if not (search_term in entry['username'].lower() or
+                    search_term in entry['url'].lower() or
+                    search_term in entry['title'].lower()):
+                continue
+            _path = get_icon_path(domain(entry['url']))
+            if not _path.exists():
+                _path = PLACEHOLDER_ICON
+            _entry = {**entry,
+                      'icon_path': str(_path)
+                      }
+            _entries.append(_entry)
     return _entries
 
 
@@ -168,15 +170,16 @@ def get_icon_path(domain):
 
 
 def fetch_all_icons():
-    for e in ENTRIES:
-        d = domain(e['url'])
-        if is_failed(d):
-            continue
+    for entries in ENTRIES.values():
+        for e in entries:
+            d = domain(e['url'])
+            if is_failed(d):
+                continue
 
-        icon_path = get_icon_path(d)
-        if not icon_path.exists():
-            tpe.submit(fetch_icon, d)
-            # fetch_icon(d)
+            icon_path = get_icon_path(d)
+            if not icon_path.exists():
+                tpe.submit(fetch_icon, d)
+                # fetch_icon(d)
 
 def html_to_icon(h):
     class HTMLFilter(HTMLParser):

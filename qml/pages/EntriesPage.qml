@@ -11,6 +11,7 @@ UITK.Page {
         id: settings
         property bool fetchOnOpen: false
         property bool tapToReveal: true
+        property bool showRecycleBin: false
     }
     property bool searchMode: false
     header: UITK.PageHeader {
@@ -22,7 +23,8 @@ UITK.Page {
             UITK.TextField {
                 visible: searchMode
                 id: searchField
-                placeholderText: i18n.ctr("text for search placeholder","Search")
+                placeholderText: i18n.ctr("text for search placeholder",
+                                          "Search")
                 anchors.fill: parent
                 anchors.topMargin: units.gu(1)
                 anchors.bottomMargin: units.gu(1)
@@ -153,12 +155,13 @@ UITK.Page {
     }
 
     function populate() {
-        python.call('kp.get_groups', [], function (_groups) {
-            sections.model = _groups
-            const crappy_data = ["ea", "nostrud", "qui", "incididunt", "qui", "nulla", "adipisicing", "irure", "mollit", "do", "id", "nostrud", "do", "ea", "occaecat", "amet", "do"]
-            //            sections.model = crappy_data
-            get_entries()
-        })
+        python.call('kp.get_groups', [settings.showRecycleBin],
+                    function (_groups) {
+                        sections.model = _groups
+                        const crappy_data = ["ea", "nostrud", "qui", "incididunt", "qui", "nulla", "adipisicing", "irure", "mollit", "do", "id", "nostrud", "do", "ea", "occaecat", "amet", "do"]
+                        //            sections.model = crappy_data
+                        get_entries()
+                    })
     }
     function get_entries() {
         const group = sections.model[sections.selectedIndex]
