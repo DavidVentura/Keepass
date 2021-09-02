@@ -6,6 +6,7 @@ import requests
 import pyotherside
 
 from html.parser import HTMLParser
+from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from functools import lru_cache
 from urllib.parse import urlparse
@@ -72,13 +73,11 @@ def get_groups(show_recycle_bin):
 
     return sorted(_groups, key=lambda x: (x == _trash_name, x))
 
-def get_entries(group_name, search_term):
+def get_entries(search_term):
     search_term = search_term.lower()
-    _entries = []
+    _entries = defaultdict(list)
     for group_uuid, entries in ENTRIES.items():
         for entry in entries:
-            if group_name != GROUPS[group_uuid]['name']:
-                continue
             if not (search_term in entry['username'].lower() or
                     search_term in entry['url'].lower() or
                     search_term in entry['title'].lower()):
@@ -89,8 +88,10 @@ def get_entries(group_name, search_term):
             _entry = {**entry,
                       'icon_path': str(_path)
                       }
-            _entries.append(_entry)
-    return _entries
+
+            group_name = GROUPS[group_uuid]['name']
+            _entries[group_name].append(_entry)
+    return dict(_entries)
 
 
 def domain(url):

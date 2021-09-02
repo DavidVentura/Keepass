@@ -165,9 +165,11 @@ UITK.Page {
     }
     function get_entries() {
         const group = sections.model[sections.selectedIndex]
-        python.call('kp.get_entries', [group, searchField.text || ''],
+        python.call('kp.get_entries', [searchField.text || ''],
                     function (items) {
                         listmodel.clear()
+                        // TODO: take to tab
+                        items = items[group] || []
                         for (var i = 0; i < items.length; i++) {
                             const item = items[i]
                             listmodel.append(item)
