@@ -7,7 +7,7 @@ UITK.Page {
 
     header: UITK.PageHeader {
         id: header
-        title: i18n.ctr("page header","Settings")
+        title: i18n.ctr("page header", "Settings")
     }
     Flickable {
         id: flick
@@ -30,16 +30,20 @@ UITK.Page {
             anchors.fill: parent
             spacing: units.gu(2)
             SettingsItem {
-                title: i18n.ctr("download icon setting","Download icons")
-                description: i18n.ctr("description for icon download setting","Download page icons on database open")
+                title: i18n.ctr("download icon setting", "Download icons")
+                description: i18n.ctr("description for icon download setting",
+                                      "Download page icons on database open")
                 control: UITK.Switch {
                     onCheckedChanged: settings.fetchOnOpen = checked
                     checked: settings.fetchOnOpen
                 }
             }
             SettingsItem {
-                title: i18n.ctr("tap to reveal passwort setting","Tap on entries to reveal password")
-                description: i18n.ctr("description for tap to reveal passwort setting","They will stay on screen for one second")
+                title: i18n.ctr("tap to reveal passwort setting",
+                                "Tap on entries to reveal password")
+                description: i18n.ctr(
+                                 "description for tap to reveal passwort setting",
+                                 "They will stay on screen for one second")
                 control: UITK.Switch {
                     onCheckedChanged: settings.tapToReveal = checked
                     checked: settings.tapToReveal
@@ -48,8 +52,10 @@ UITK.Page {
 
             SettingsItem {
                 // TRANSLATORS: DB is the abbreviation for database
-                title: i18n.ctr("auto-close time for database setting","Auto-close db after inactivity")
-                description: i18n.ctr("description for auto-close setting","In minutes. 0 for disabled.")
+                title: i18n.ctr("auto-close time for database setting",
+                                "Auto-close db after inactivity")
+                description: i18n.ctr("description for auto-close setting",
+                                      "In minutes. 0 for disabled.")
                 control: UITK.TextField {
                     inputMethodHints: Qt.ImhDigitsOnly
                     text: settings.autoCloseInterval
@@ -74,8 +80,11 @@ UITK.Page {
                 }
             }
             SettingsItem {
-                title: 'Show the "Recycle bin" group'
-                description: 'This group contains all the deleted entries'
+                title: i18n.ctr("show recycle-bin setting",
+                                'Show the "Recycle bin" group')
+                description: i18n.ctr(
+                                 "description for show recycle-bin setting",
+                                 'This group contains all the deleted entries')
                 control: UITK.Switch {
                     onCheckedChanged: settings.showRecycleBin = checked
                     checked: settings.showRecycleBin
