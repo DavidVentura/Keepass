@@ -111,6 +111,13 @@ UITK.ListItem {
                 text: passwordVisible ? password : '••••••••'
                 color: theme.palette.normal.backgroundTertiaryText
             }
+
+            Text {
+                text: url
+                width: parent.width
+                elide: Text.ElideRight
+                color: theme.palette.normal.backgroundTertiaryText
+            }
         }
     }
 
