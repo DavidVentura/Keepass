@@ -64,33 +64,35 @@ def open_db(db_path, key_path, password):
 def get_groups(show_recycle_bin):
     _groups = []
     _trash_name = ''
-    for uuid, g in GROUPS.items():
-        if uuid == META['recycle_bin_uuid']:
-            _trash_name = g['name']
-            if not show_recycle_bin:
-                continue
-        _groups.append(g['name'])
+    for g in GROUPS:
+        if g.uuid == META.recycle_bin_uuid:
+            _trash_name = g.name
+            continue
+        _groups.append(g.name)
 
-    return sorted(_groups, key=lambda x: (x == _trash_name, x))
+    if show_recycle_bin:
+        _groups.append(_trash_name)
+    return _groups
 
 def get_entries(search_term):
     search_term = search_term.lower()
     _entries = defaultdict(list)
-    for group_uuid, entries in ENTRIES.items():
-        for entry in entries:
-            if not (search_term in entry['username'].lower() or
-                    search_term in entry['url'].lower() or
-                    search_term in entry['title'].lower()):
-                continue
-            _path = get_icon_path(domain(entry['url']))
-            if not _path.exists():
-                _path = PLACEHOLDER_ICON
-            _entry = {**entry,
-                      'icon_path': str(_path)
-                      }
+    for entry in ENTRIES:
+        if not (search_term in entry.username.lower() or
+                search_term in entry.url.lower() or
+                search_term in entry.title.lower()):
+            continue
+        _path = get_icon_path(domain(entry.url))
+        if not _path.exists():
+            _path = PLACEHOLDER_ICON
+        _entry = {'url': entry.url,
+                  'username': entry.username,
+                  'title': entry.title,
+                  'password': entry.password,
+                  'icon_path': str(_path),
+                  }
 
-            group_name = GROUPS[group_uuid]['name']
-            _entries[group_name].append(_entry)
+        _entries[entry.group.name].append(_entry)
     return dict(_entries)
 
 
@@ -171,16 +173,15 @@ def get_icon_path(domain):
 
 
 def fetch_all_icons():
-    for entries in ENTRIES.values():
-        for e in entries:
-            d = domain(e['url'])
-            if is_failed(d):
-                continue
+    for e in ENTRIES:
+        d = domain(e.url)
+        if is_failed(d):
+            continue
 
-            icon_path = get_icon_path(d)
-            if not icon_path.exists():
-                tpe.submit(fetch_icon, d)
-                # fetch_icon(d)
+        icon_path = get_icon_path(d)
+        if not icon_path.exists():
+            tpe.submit(fetch_icon, d)
+            # fetch_icon(d)
 
 def html_to_icon(h):
     class HTMLFilter(HTMLParser):
