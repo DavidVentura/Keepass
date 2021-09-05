@@ -112,6 +112,7 @@ UITK.ListItem {
                 width: parent.width
                 elide: Text.ElideRight
                 color: theme.palette.normal.backgroundTertiaryText
+                font.pixelSize: units.gu(1.5)
             }
 
             Text {
