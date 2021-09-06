@@ -20,6 +20,7 @@ Row {
             anchors.left: parent.left
             anchors.right: parent.right
             text: title
+            wrapMode: Text.WordWrap
         }
         UITK.Label {
             visible: description !== ''
