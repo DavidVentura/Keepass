@@ -83,7 +83,7 @@ def get_entries(search_term):
                 search_term in entry.title.lower()):
             continue
         _path = get_icon_path(domain(entry.url))
-        if not _path.exists():
+        if not _path.is_file():
             _path = PLACEHOLDER_ICON
         _entry = {'url': entry.url,
                   'username': entry.username,
@@ -97,6 +97,8 @@ def get_entries(search_term):
 
 
 def domain(url):
+    if not url:
+        return ''
     if '/' not in url:
         return url
     return urlparse(url).netloc
