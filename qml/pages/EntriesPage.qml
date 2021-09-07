@@ -14,7 +14,7 @@ UITK.Page {
         property bool showRecycleBin: false
         property bool changeGroupOnSearch: true
     }
-    property bool searchMode: false
+    property bool searchMode: true
     header: UITK.PageHeader {
         id: header
         z: 2
@@ -30,9 +30,6 @@ UITK.Page {
                 anchors.topMargin: units.gu(1)
                 anchors.bottomMargin: units.gu(1)
                 text: ''
-                Keys.onReturnPressed: {
-                    get_entries()
-                }
                 onTextChanged: {
                     get_entries()
                 }
@@ -44,21 +41,6 @@ UITK.Page {
                 text: i18n.tr("Passwords")
             }
         }
-        trailingActionBar.actions: [
-            UITK.Action {
-                iconName: "find"
-                text: i18n.tr("Search")
-                onTriggered: {
-                    if (searchMode) {
-                        get_entries()
-                    } else {
-                        searchField.forceActiveFocus()
-                    }
-
-                    searchMode = !searchMode
-                }
-            }
-        ]
     }
 
     id: sectionFlickable
