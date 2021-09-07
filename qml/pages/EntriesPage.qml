@@ -34,7 +34,7 @@ UITK.Page {
                     get_entries()
                 }
                 onTextChanged: {
-                    searchTimer.restart()
+                    get_entries()
                 }
             }
             UITK.Label {
@@ -42,14 +42,6 @@ UITK.Page {
                 anchors.fill: parent
                 verticalAlignment: Qt.AlignVCenter
                 text: i18n.tr("Passwords")
-            }
-            Timer {
-                id: searchTimer
-                interval: 100
-                repeat: false
-                onTriggered: {
-                    get_entries()
-                }
             }
         }
         trailingActionBar.actions: [
