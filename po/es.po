@@ -55,15 +55,13 @@ msgstr "Abrir DB"
 
 #: ../qml/pages/OpenDBPage.qml:194
 msgid ""
-"You are running on an ARMv7 device in which databases version 4 (kdbx4) are "
-"<b>extremely</b> slow. <br/> I don't know why yet, it is an issue with "
-"keepass-rs.<br/> For your sanity, make sure your database is version 3 "
-"(kdbx3)"
+"You are running on an ARMv7 device in which databases version 3 (kdbx3) are "
+"<b>extremely</b> slow.<br/>For your sanity, make sure your database is version 4 "
+"(kdbx4)"
 msgstr ""
 "Está ejecutando en un dispositivo ARMv7 en los cuales las bases de datos de "
-"la versión 4 (kdbx4) son <b>extremadamente</b> lentas. <br/>. Aún no se el "
-"motivo, es un fallo con keepass-rs.<br/> Por su bienestar, asegúrese de que "
-"su base de datos es de la versión 3 (kdbx3)"
+"la versión 3 (kdbx3) son <b>extremadamente</b> lentas. <br/> Por su bienestar, asegúrese de que "
+"su base de datos es de la versión 4 (kdbx4)"
 
 #: ../qml/pages/SettingsPage.qml:10
 msgctxt "page header"

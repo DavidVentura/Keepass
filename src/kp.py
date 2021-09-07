@@ -18,7 +18,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 vendored = os.path.join(here, '..', 'vendored')
 sys.path.insert(0, vendored)
 
-from pykeepass_rs import get_meta_and_entries
+from pykeepass_rs import get_meta_and_entries, get_db_version
 
 ENTRIES = []
 GROUPS = []
@@ -38,6 +38,8 @@ CACHE_ICON_PATH.mkdir(parents=True, exist_ok=True)
 FAILED_ICON_PATH.mkdir(parents=True, exist_ok=True)
 KEY_DB_PATH.mkdir(parents=True, exist_ok=True)
 
+def is_db_v3(path):
+    return get_db_version(path) == 3
 
 def is_armv7():
     return '32' in platform.architecture()[0]

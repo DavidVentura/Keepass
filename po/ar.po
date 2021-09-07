@@ -55,15 +55,14 @@ msgstr "فَتحُ قاعِدَةِ البَيانات"
 
 #: ../qml/pages/OpenDBPage.qml:194
 msgid ""
-"You are running on an ARMv7 device in which databases version 4 (kdbx4) are "
-"<b>extremely</b> slow. <br/> I don't know why yet, it is an issue with "
-"keepass-rs.<br/> For your sanity, make sure your database is version 3 "
-"(kdbx3)"
+"You are running on an ARMv7 device in which databases version 3 (kdbx3) are "
+"<b>extremely</b> slow.<br/>For your sanity, make sure your database is version 4 "
+"(kdbx4)"
 msgstr ""
-"أنت تعمل على جهاز ARMV7 الذي تكون فيه قواعد بيانات الإصدار الرابع (KDBX4) <b"
+"أنت تعمل على جهاز ARMV7 الذي تكون فيه قواعد بيانات الإصدار الرابع (KDBX3) <b"
 ">بطيئة للغاية</b>. <br/> أنا لا أعلم لماذا حتى الآن، لكنها مشكلة مع"
 " keepass-rs. <br/> لكي لا تعاني، تأكد أن قاعدة البيانات الخاصة بك من الإصدار"
-" الثالث (KDBX3)"
+" الثالث (KDBX4)"
 
 #: ../qml/pages/SettingsPage.qml:10
 msgctxt "page header"
