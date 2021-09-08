@@ -191,9 +191,9 @@ UITK.Page {
             title: "Database version compatibility"
             modal: true
             text: i18n.tr(
-                      "You are running on an ARMv7 device in which databases version 4 (kdbx4) are <b>extremely</b> slow. <br/> \
-I don't know why yet, it is an issue with keepass-rs.<br/> \
-For your sanity, make sure your database is version 3 (kdbx3)")
+                      "You are running on an ARMv7 device in which databases version 3 (kdbx3) are <b>extremely</b> slow. <br/> \
+<br/> \
+For your sanity, make sure your database is version 4 (kdbx4)")
 
             UITK.Button {
                 text: "Ok"

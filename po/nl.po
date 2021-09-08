@@ -8,12 +8,12 @@ msgstr ""
 "Project-Id-Version: keepass.davidv.dev\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-04 18:40+0000\n"
-"PO-Revision-Date: 2021-09-06 13:30+0200\n"
+"PO-Revision-Date: 2021-09-08 15:50+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 2.4.2\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: nl\n"
@@ -60,10 +60,9 @@ msgid ""
 "keepass-rs.<br/> For your sanity, make sure your database is version 3 "
 "(kdbx3)"
 msgstr ""
-"Je draait deze app op een ARMv7-apparaat. Databanken met versienummer 4 "
-"(kdbx4) zijn hierop <b>zeer</b> traag. <br/> Ik weet nog niet waarom, maar "
-"het zit hem ergens in keepass-rs.<br/> Ik raad dan ook ten zeerste aan om "
-"een databank met versienummer 3 (kdbx3) te gebruiken."
+"Je draait deze app op een ARMv7-apparaat. Databanken met versienummer 3 "
+"(kdbx3) zijn hierop <b>zeer</b> traag. <br/>Ik raad dan ook ten zeerste aan "
+"om een databank met versienummer 4 (kdbx4) te gebruiken."
 
 #: ../qml/pages/SettingsPage.qml:10
 msgctxt "page header"
@@ -78,7 +77,7 @@ msgstr "Favicons ophalen"
 #: ../qml/pages/SettingsPage.qml:36
 msgctxt "description for icon download setting"
 msgid "Download page icons on database open"
-msgstr "Haal automatisch favicons op na het openen van de databank."
+msgstr "Haal automatisch favicons op na het openen van de databank"
 
 #: ../qml/pages/SettingsPage.qml:44
 msgctxt "tap to reveal passwort setting"
@@ -88,7 +87,7 @@ msgstr "Druk op een item om het wachtwoord te tonen"
 #: ../qml/pages/SettingsPage.qml:47
 msgctxt "description for tap to reveal passwort setting"
 msgid "They will stay on screen for one second"
-msgstr "Ze worden één seconde getoond."
+msgstr "Ze worden één seconde getoond"
 
 #: ../qml/pages/SettingsPage.qml:57
 msgctxt "auto-close time for database setting"
@@ -108,7 +107,7 @@ msgstr "Prullenbak tonen"
 #: ../qml/pages/SettingsPage.qml:88
 msgctxt "description for show recycle-bin setting"
 msgid "This group contains all the deleted entries"
-msgstr "Deze groep bevat alle verwijderde items."
+msgstr "Deze groep bevat alle verwijderde items"
 
 #: ../qml/pages/SettingsPage.qml:96
 msgctxt "change section on search setting"
@@ -122,7 +121,7 @@ msgid ""
 "the current section, and there are results in another section"
 msgstr ""
 "Verander de sectie automatisch als er geen zoekresultaten zijn binnen de "
-"huidige sectie, maar wel in een andere."
+"huidige sectie, maar wel in een andere"
 
 #: Keepass.desktop.in.h:1
 msgid "Keepass"
