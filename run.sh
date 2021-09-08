@@ -1,8 +1,11 @@
 #!/bin/sh
 set -e
+arch=arm64
 ip=192.168.2.155
 ip=192.168.2.156
-clickable build   --arch arm64 --skip-review --ssh $ip
-clickable install --arch arm64 --ssh $ip
-clickable launch  --arch arm64 --ssh $ip
-clickable logs    --arch arm64 --ssh $ip
+arch=armhf
+ip=192.168.2.176
+clickable build   --arch $arch --skip-review --ssh $ip
+clickable install --arch $arch --ssh $ip
+clickable launch  --arch $arch --ssh $ip
+clickable logs    --arch $arch --ssh $ip
