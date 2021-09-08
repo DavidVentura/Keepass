@@ -217,7 +217,8 @@ UITK.Page {
 
     //try to give a userfriendly feedback if a known error message does occur
     function parseErrorMessages(message) {
-        if (message === "KDBX error: Database integrity error: Cryptography error: BlockMode { e: BlockModeError }") {
+        // error message for wrong password, first string for KDBX3.1 version, second string for KDBX4.0 version
+        if (message === "KDBX error: Database integrity error: Cryptography error: BlockMode { e: BlockModeError }" || message === "KDBX error: Incorrect key specified") {
             message = i18n.ctr("error message when wrong password is entered","wrong password, please try again")
         }
         return message
