@@ -2,9 +2,10 @@ import QtQuick 2.0
 import Ubuntu.Components 1.3 as UITK
 import "../components"
 import Qt.labs.settings 1.0
+import io.thp.pyotherside 1.3
 
 UITK.Page {
-
+    property bool isARMv7: false
     header: UITK.PageHeader {
         id: header
         title: i18n.ctr("page header", "Settings")
@@ -26,6 +27,7 @@ UITK.Page {
                 property bool tapToReveal: true
                 property bool showRecycleBin: false
                 property bool changeGroupOnSearch: true
+                property bool showSlowDBWarning: true
             }
             id: col
             anchors.fill: parent
@@ -103,6 +105,31 @@ search value in the current section, and there are results in another section')
                     checked: settings.changeGroupOnSearch
                 }
             }
+            SettingsItem {
+                visible: isARMv7
+                title: i18n.ctr(
+                           "show slow database warning setting",
+                           'Show warning before opening very slow databases')
+                description: i18n.ctr(
+                                 "description for show slow database warning setting",
+                                 'Opening KDBX3 databases on ARMv7 devices can take up to 2 seconds <b>per entry</b> (3 minutes for 100 entries)')
+                control: UITK.Switch {
+                    onCheckedChanged: settings.showSlowDBWarning = checked
+                    checked: settings.showSlowDBWarning
+                }
+            }
+        }
+    }
+    Python {
+        id: python
+        Component.onCompleted: {
+            addImportPath(Qt.resolvedUrl('../../src/'))
+            importModule('kp', function () {
+
+                python.call('kp.is_armv7', [], function (result) {
+                    isARMv7 = result
+                })
+            })
         }
     }
 }

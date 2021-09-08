@@ -34,7 +34,7 @@ UITK.Page {
         property string lastKey
         property string lastDB
         property int autoCloseInterval: 15
-        property bool knowsAboutSlowKDBX4: false
+        property bool showSlowDBWarning: true
     }
 
     ContentHub.ContentPeerPicker {
@@ -67,6 +67,12 @@ UITK.Page {
             python.call('kp.set_file', [filePath, pickingDB], function (path) {
                 if (pickingDB) {
                     settings.lastDB = path
+                    const is_armv7 = python.call_sync('kp.is_armv7')
+                    const is_db_v3 = python.call_sync('kp.is_db_v3', [filePath])
+                    if (is_armv7 && is_db_v3 && settings.value(
+                                'showSlowDBWarning', true)) {
+                        PopupUtils.open(cpu_version_component)
+                    }
                 } else {
                     settings.lastKey = path
                 }
@@ -191,15 +197,12 @@ UITK.Page {
             title: "Database version compatibility"
             modal: true
             text: i18n.tr(
-                      "You are running on an ARMv7 device in which databases version 3 (kdbx3) are <b>extremely</b> slow. <br/> \
-<br/> \
-For your sanity, make sure your database is version 4 (kdbx4)")
+                      "You are running on an ARMv7 device in which databases version 3 (kdbx3) are <b>extremely</b> slow.<br/>For your sanity, make sure your database is version 4 (kdbx4)")
 
             UITK.Button {
                 text: "Ok"
                 onClicked: {
                     PopupUtils.close(cpu_version_popup)
-                    settings.knowsAboutSlowKDBX4 = true
                 }
             }
         }
@@ -227,12 +230,6 @@ For your sanity, make sure your database is version 4 (kdbx4)")
             })
             importModule('kp', function () {
                 loadedKp = true
-            })
-
-            python.call('kp.is_armv7', [], function (result) {
-                if (result && !settings.knowsAboutSlowKDBX4) {
-                    PopupUtils.open(cpu_version_component)
-                }
             })
         }
     }
