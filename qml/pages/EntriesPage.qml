@@ -29,7 +29,7 @@ UITK.Page {
                 anchors.fill: parent
                 anchors.topMargin: units.gu(1)
                 anchors.bottomMargin: units.gu(1)
-                text: ''
+                inputMethodHints: Qt.ImhNoPredictiveText
                 Keys.onReturnPressed: {
                     get_entries()
                 }
