@@ -4,7 +4,7 @@ import Ubuntu.Content 1.3 as ContentHub
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
-import io.thp.pyotherside 1.3
+import io.thp.pyotherside 1.4
 import Qt.labs.settings 1.0
 import "../components"
 
