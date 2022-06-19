@@ -2,7 +2,7 @@ import QtQuick 2.0
 import Ubuntu.Components 1.3 as UITK
 import "../components"
 import Qt.labs.settings 1.0
-import io.thp.pyotherside 1.3
+import io.thp.pyotherside 1.4
 
 UITK.Page {
     property bool isARMv7: false
