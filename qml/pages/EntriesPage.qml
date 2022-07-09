@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import io.thp.pyotherside 1.3
+import io.thp.pyotherside 1.4
 import Ubuntu.Components 1.3 as UITK
 import Qt.labs.settings 1.0
 
