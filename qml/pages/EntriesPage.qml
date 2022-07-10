@@ -115,7 +115,7 @@ UITK.Page {
 
         Timer {
             id: popupTimer
-            interval: 2000
+            interval: 3000
             running: true
             onTriggered: {
                 toast.close()
