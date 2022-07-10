@@ -64,19 +64,19 @@ add_custom_target(${DESKTOP_FILE_NAME} ALL
     COMMAND LC_ALL=C ${INTLTOOL_MERGE} -d -u ${CMAKE_SOURCE_DIR}/po ${CMAKE_SOURCE_DIR}/${DESKTOP_FILE_NAME}.in ${DESKTOP_FILE_NAME}
     COMMAND sed -i 's/${PROJECT_NAME}-//g' ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME}
 )
-
+set(ENV{RUST_BACKTRACE} 1)
 execute_process(
    COMMAND dpkg-architecture -qDEB_HOST_GNU_CPU
    COMMAND sed -e "s/arm64/manylinux2014_aarch64/g"
    COMMAND sed -e "s/arm/manylinux2014_armv7l/g"
-   COMMAND sed -e "s/x86_64/manylinux1_x86_64/g"
+   COMMAND sed -e "s/x86_64/manylinux2014_x86_64/g"
    OUTPUT_VARIABLE CPU_ARCH
    OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 add_custom_target(no_idea ALL
     COMMAND pip3 install -U pip==20.3.4 requests
     COMMENT Building for ${CPU_ARCH}
-    COMMAND pip3 install -U --platform ${CPU_ARCH} --only-binary=:all: pykeepass-rs==0.1.13 --target install/vendored
+    COMMAND pip3 install -U --platform ${CPU_ARCH} --only-binary=:all: pykeepass-rs==0.1.15 --target install/vendored
 )
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME} DESTINATION ${DATA_DIR})
 

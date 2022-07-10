@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: keepass.davidv.dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-08 14:31+0000\n"
+"POT-Creation-Date: 2022-07-10 20:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,12 +22,8 @@ msgctxt "text for search placeholder"
 msgid "Search"
 msgstr ""
 
-#: ../qml/pages/EntriesPage.qml:44
+#: ../qml/pages/EntriesPage.qml:41
 msgid "Passwords"
-msgstr ""
-
-#: ../qml/pages/EntriesPage.qml:50
-msgid "Search"
 msgstr ""
 
 #. TRANSLATORS: DB is the abbreviation for database

@@ -21,7 +21,6 @@ UITK.ListItem {
     //                     Qt.openUrlExternally('http://' + url)
     //                     return
     //                 }
-    //
     //                 Qt.openUrlExternally(url)
     //             }
     //         }
@@ -64,6 +63,18 @@ UITK.ListItem {
                     }
 
                     Qt.openUrlExternally(url)
+                }
+            },
+            UITK.Action {
+                visible: has_totp
+                iconSource: "../../assets/2fa.svg"
+                iconName: "external-link"
+                onTriggered: {
+                    python.call('kp.get_totp', [uuid], function (result) {
+                        UITK.Clipboard.push(result.code)
+                        toast.show("Token '" + result.code + "' copied. Valid for "
+                                   + result.valid_for + "s")
+                    })
                 }
             }
         ]

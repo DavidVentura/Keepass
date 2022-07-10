@@ -76,6 +76,14 @@ def get_groups(show_recycle_bin):
         _groups.append(_trash_name)
     return _groups
 
+def get_totp(entry_uuid):
+    for entry in ENTRIES:
+        if entry.uuid != entry_uuid:
+            continue
+        t = entry.totp()
+        return {'code': t.code, 'valid_for': t.valid_for}
+    return None
+
 def get_entries(search_term):
     search_term = search_term.lower()
     _entries = defaultdict(list)
@@ -92,6 +100,8 @@ def get_entries(search_term):
                   'title': entry.title,
                   'password': entry.password,
                   'icon_path': str(_path),
+                  'has_totp': entry.totp() is not None,
+                  'uuid': entry.uuid,
                   }
 
         _entries[entry.group.name].append(_entry)
