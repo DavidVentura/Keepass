@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: keepass.davidv.dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-08 14:31+0000\n"
+"POT-Creation-Date: 2021-09-08 20:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,6 +57,11 @@ msgid ""
 "You are running on an ARMv7 device in which databases version 3 (kdbx3) are "
 "<b>extremely</b> slow.<br/>For your sanity, make sure your database is "
 "version 4 (kdbx4)"
+msgstr ""
+
+#: ../qml/pages/OpenDBPage.qml:222
+msgctxt "error message when wrong password is entered"
+msgid "wrong password, please try again"
 msgstr ""
 
 #: ../qml/pages/SettingsPage.qml:11
