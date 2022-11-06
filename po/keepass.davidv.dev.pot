@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: keepass.davidv.dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-08 14:31+0000\n"
+"POT-Creation-Date: 2022-11-06 15:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,12 +22,8 @@ msgctxt "text for search placeholder"
 msgid "Search"
 msgstr ""
 
-#: ../qml/pages/EntriesPage.qml:44
+#: ../qml/pages/EntriesPage.qml:41
 msgid "Passwords"
-msgstr ""
-
-#: ../qml/pages/EntriesPage.qml:50
-msgid "Search"
 msgstr ""
 
 #. TRANSLATORS: DB is the abbreviation for database
@@ -43,16 +39,16 @@ msgstr ""
 msgid "Clear Key"
 msgstr ""
 
-#: ../qml/pages/OpenDBPage.qml:164
+#: ../qml/pages/OpenDBPage.qml:167
 msgid "Password"
 msgstr ""
 
 #. TRANSLATORS: DB is the abbreviation for database
-#: ../qml/pages/OpenDBPage.qml:178
+#: ../qml/pages/OpenDBPage.qml:194
 msgid "Open DB"
 msgstr ""
 
-#: ../qml/pages/OpenDBPage.qml:200
+#: ../qml/pages/OpenDBPage.qml:216
 msgid ""
 "You are running on an ARMv7 device in which databases version 3 (kdbx3) are "
 "<b>extremely</b> slow.<br/>For your sanity, make sure your database is "
