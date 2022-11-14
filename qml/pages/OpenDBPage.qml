@@ -157,19 +157,35 @@ UITK.Page {
             }
         }
 
-        UITK.TextField {
-            id: password
-            enabled: true
-            text: ''
-            placeholderText: i18n.tr("Password")
-            echoMode: TextInput.Password
+        RowLayout {
             Layout.fillWidth: true
-            Keys.onReturnPressed: open_db()
 
-            onTextChanged: {
-                errorMsg = ''
+            UITK.TextField {
+                id: password
+                enabled: true
+                text: ''
+                placeholderText: i18n.tr("Password")
+                echoMode: showPasswordAction.checked ? TextInput.Normal : TextInput.Password
+                Layout.fillWidth: true
+                Keys.onReturnPressed: open_db()
+
+                onTextChanged: {
+                    errorMsg = ''
+                }
+            }
+
+            UITK.ActionBar {
+                numberOfSlots: 1
+                actions: [
+                    UITK.Action {
+                        id: showPasswordAction
+                        checkable: true
+                        iconSource: checked ? "../../assets/visibility_off.png" : "../../assets/visibility.png"
+                    }
+                ]
             }
         }
+
         UITK.Button {
             Layout.fillWidth: true
             enabled: loadedKp && settings.lastDB && (settings.lastKey

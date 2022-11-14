@@ -39,16 +39,16 @@ msgstr ""
 msgid "Clear Key"
 msgstr ""
 
-#: ../qml/pages/OpenDBPage.qml:164
+#: ../qml/pages/OpenDBPage.qml:167
 msgid "Password"
 msgstr ""
 
 #. TRANSLATORS: DB is the abbreviation for database
-#: ../qml/pages/OpenDBPage.qml:178
+#: ../qml/pages/OpenDBPage.qml:194
 msgid "Open DB"
 msgstr ""
 
-#: ../qml/pages/OpenDBPage.qml:200
+#: ../qml/pages/OpenDBPage.qml:216
 msgid ""
 "You are running on an ARMv7 device in which databases version 3 (kdbx3) are "
 "<b>extremely</b> slow.<br/>For your sanity, make sure your database is "
