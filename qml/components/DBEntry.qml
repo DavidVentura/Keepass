@@ -46,7 +46,7 @@ UITK.ListItem {
                 }
             },
             UITK.Action {
-                visible: username
+                visible: password
                 iconSource: "../../assets/key.svg"
                 onTriggered: {
                     UITK.Clipboard.push(password)
