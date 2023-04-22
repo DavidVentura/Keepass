@@ -21,7 +21,7 @@ set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)
 if(DEFINED ENV{SDK_FRAMEWORK})
     set(CLICK_FRAMEWORK "$ENV{SDK_FRAMEWORK}")
 else()
-    set(CLICK_FRAMEWORK "ubuntu-sdk-16.04.3")
+    set(CLICK_FRAMEWORK "ubuntu-sdk-20.04")
 endif()
 
 # This figures out the target architecture for use in the manifest file.
@@ -76,6 +76,7 @@ execute_process(
 add_custom_target(no_idea ALL
     COMMAND pip3 install -U pip requests
     COMMENT Building for ${CPU_ARCH}
+    COMMAND python3 --version
     COMMAND pip3 install -U --platform ${CPU_ARCH} --only-binary=:all: pykeepass-rs==0.1.15 --target install/vendored
 )
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME} DESTINATION ${DATA_DIR})
