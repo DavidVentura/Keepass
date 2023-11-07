@@ -6,7 +6,7 @@ import QtGraphicalEffects 1.0
 
 UITK.ListItem {
     property bool passwordVisible: false
-    height: units.gu(10)
+    height: units.gu(11)
     anchors.left: parent.left
     anchors.right: parent.right
 
@@ -116,6 +116,14 @@ UITK.ListItem {
                 elide: Text.ElideRight
                 color: theme.palette.normal.backgroundTertiaryText
                 text: username
+            }
+
+            Text {
+                text: url
+                width: parent.width
+                elide: Text.ElideRight
+                color: theme.palette.normal.backgroundTertiaryText
+                font.pixelSize: units.gu(1.5)
             }
 
             Text {
