@@ -94,13 +94,17 @@ def get_entries(search_term):
             continue
         _path = get_icon_path(domain(entry.url))
         if not _path.is_file():
-            _path = PLACEHOLDER_ICON
+            _path_tmp = ''
+        else:
+            _path_tmp = str(_path)
+
         _entry = {'url': entry.url,
                   'username': entry.username,
                   'title': entry.title,
                   'password': entry.password,
-                  'icon_path': str(_path),
+                  'icon_path': _path_tmp,
                   'has_totp': entry.totp() is not None,
+                  'totp': {'code':'','valid_for':''},
                   'uuid': entry.uuid,
                   }
 

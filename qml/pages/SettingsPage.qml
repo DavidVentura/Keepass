@@ -24,6 +24,7 @@ UITK.Page {
                 id: settings
                 property bool fetchOnOpen: false
                 property int autoCloseInterval: 15
+                property int autoHideInterval: 5
                 property bool tapToReveal: true
                 property bool showRecycleBin: false
                 property bool changeGroupOnSearch: true
@@ -50,6 +51,35 @@ UITK.Page {
                 control: UITK.Switch {
                     onCheckedChanged: settings.tapToReveal = checked
                     checked: settings.tapToReveal
+                }
+            }
+            SettingsItem {
+                // TRANSLATORS: DB is the abbreviation for database
+                title: i18n.ctr("auto-hide time for password setting",
+                                "Auto-hide password timeout")
+                description: i18n.ctr("description for auto-hide setting",
+                                      "In seconds. 1-30 s")
+                control: UITK.TextField {
+                    inputMethodHints: Qt.ImhDigitsOnly
+                    text: settings.autoHideInterval
+                    onTextChanged: {
+                        if (isNaN(parseInt(text))) {
+                            text = 1
+                        }
+                        if (parseInt(text) < 1) {
+                            text = 1
+                        }
+                        if (parseInt(text) > 30) {
+                            text = 30
+                        }
+
+                        settings.autoHideInterval = parseInt(text)
+                    }
+                    hasClearButton: false
+                    validator: IntValidator {
+                        bottom: 0
+                        top: 100
+                    }
                 }
             }
 

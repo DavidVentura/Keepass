@@ -13,6 +13,7 @@ UITK.Page {
         property bool tapToReveal: true
         property bool showRecycleBin: false
         property bool changeGroupOnSearch: true
+        property int autoHideInterval: 5
     }
     property bool searchMode: true
     header: UITK.PageHeader {
